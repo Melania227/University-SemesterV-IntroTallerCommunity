@@ -9,6 +9,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+
 import { HomeComponent } from './components/shared/home/home.component';
 import { NavbarStudentComponent } from './components/shared/navbar-student/navbar-student.component';
 import { NavbarAdminComponent } from './components/shared/navbar-admin/navbar-admin.component';
@@ -21,6 +22,9 @@ import { ExercisesListCRUDComponent } from './components/exercises-list-crud/exe
 import { CreateExerciseComponent } from './components/exercises-list-CRUD/create-exercise/create-exercise.component';
 import { EditExerciseComponent } from './components/exercises-list-CRUD/edit-exercise/edit-exercise.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,9 @@ import { CreateCategoryComponent } from './components/create-category/create-cat
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
