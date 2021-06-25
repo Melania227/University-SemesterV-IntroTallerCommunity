@@ -26,6 +26,8 @@ import { CreateCategoryComponent } from './components/create-category/create-cat
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CodeEditorModule } from '@ngstack/code-editor';
+
 
 @NgModule({
   declarations: [
@@ -51,8 +53,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularFireStorageModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
-    FormsModule 
+    CodeEditorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
