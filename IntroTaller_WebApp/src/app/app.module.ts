@@ -51,7 +51,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularFireStorageModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
     FormsModule 
   ],
   providers: [],

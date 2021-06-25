@@ -1,1 +1,105 @@
-<p>exercises-details works!</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">  
+
+<div class="px-5">
+    <div class="row title p-5 text-center">
+        <p>{{exercise.section}}</p>
+    </div>
+
+    <div class="row details pt-5">
+        <div class="row p-4 mb-5 text-center ">
+            <h2>DEFINICIÓN</h2>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-3">
+                <h4>{{exercise.name}}</h4>
+            </div>
+            
+            <div class="col-md-5 stars">
+                <ng-container *ngFor="let star of calification">
+                    <i class="fas fa-star" *ngIf="star"></i>
+                    <i class="far fa-star" *ngIf="!star"></i>
+                </ng-container>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <p>{{exercise.details}}</p>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <p class="m-0 d-inline titles">Autor: </p> <p class="m-0 d-inline">{{exercise.creator}}</p> 
+            </div>
+            <div class="col-md-5">
+                <p class="m-0 d-inline titles">Fecha de creación: </p> <p class="m-0 d-inline">{{exercise.created  | date: "fullDate"}}</p>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+
+        <div class="row examples">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="card examplesCard p-5 text-left">
+                  <img class="card-img-top" src="" alt="">
+                  <div class="card-body">
+                    <h4 class="card-title mb-3">Ejemplos</h4>
+                    <div class="row eachExample mb-3" *ngFor="let example of examples">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <p class="m-0 d-inline meaningExample titles">Llamada: </p> <p class="m-0 d-inline">{{example.call}}</p> <br>
+                            <p class="m-0 d-inline meaningExample titles">Nota: </p> <p class="m-0 d-inline" *ngIf="example.comment != ''">{{example.comment}}</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br>
+                            <p class="m-0 d-inline meaningExample titles">Resultado: </p> <p class="m-0 d-inline">{{example.result}}</p> <br>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        
+        <div class="row p-5 m-0 solution">
+            <div class="text-center p-4 text-white">
+                <h2>SOLUCIÓN</h2>
+            </div>
+
+            <div class="text-center p-4 text-white">
+                <button class="btn" (click)="showSolutionClick()">{{buttonText}}</button>
+            </div>
+
+            <div class="row" *ngIf="showSolution">
+                <div class="col">
+                    <div class="p-4 text-white">
+                        <p class="m-0 entries">Entradas: </p> 
+                        <p class="m-0" *ngFor="let input of exercise.solution.inputs">{{input.name}}: {{input.type}}</p>
+                        <br>
+                        <p class="m-0 output">Salidas: </p> 
+                        <p class="m-0"*ngFor="let output of exercise.solution.outputs">{{output.name}}: {{output.type}}</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="pt-4 px-4 titles">Código:</p> 
+                    <p class="px-4">{{exercise.solution.code}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
