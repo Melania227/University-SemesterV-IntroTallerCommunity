@@ -23,7 +23,11 @@ export class FirebaseService {
         list.push(data);
       });
     });
-    console.log(list);
+    this.rootRef.child("14").once('value', (snapshot) => {
+      console.log(snapshot.val());
+
+    });
+
     return list;
   }
 
@@ -81,6 +85,17 @@ export class FirebaseService {
     console.log(list);
     return list;
   }
+
+
+  //Ejercicio por su código
+  excercisesByID(code: number): Ejercicio {
+    let exercise: Ejercicio;
+    this.rootRef.child(code.toString()).once('value', (snapshot) => {
+      exercise = snapshot.val();
+    });
+    return exercise;
+  }
+
 
   //Ejercicios por nivel
   excercisesByLevel(level: number): Ejercicio[] {
