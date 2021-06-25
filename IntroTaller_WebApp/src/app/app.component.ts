@@ -1,33 +1,16 @@
-import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import firebase from 'firebase';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import {FirebaseService} from 'src/app/services/firebase.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'WebApp';
-  rootRef: firebase.database.Reference;
 
-  constructor(private angularFirebaseDatabase: AngularFireDatabase){
-    
-    const database = this.angularFirebaseDatabase.database;
-    this.rootRef = database.ref('/Ejercicios/');
+  constructor(public firebase: FirebaseService){
   }
-
-
-  getUserList() { 
-    this.rootRef.once('value', function(snapshot) {
-    
-      snapshot.forEach(function(childSnapshot) {
-        const data = snapshot.val();
-
-        console.log(data);
-          });
-    });
-    
-  }
-
 }
