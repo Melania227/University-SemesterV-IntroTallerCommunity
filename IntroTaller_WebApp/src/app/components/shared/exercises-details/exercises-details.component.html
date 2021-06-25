@@ -2,7 +2,7 @@
 
 <div class="px-5">
     <div class="row title p-5 text-center">
-        <p>{{exercise.section}}</p>
+        
     </div>
 
     <div class="row details pt-5">
@@ -40,11 +40,14 @@
         <div class="row mb-5">
             <div class="col-md-2">
             </div>
-            <div class="col-md-5">
+            <div class="col-md-2">
                 <p class="m-0 d-inline titles">Autor: </p> <p class="m-0 d-inline">{{exercise.creator}}</p> 
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <p class="m-0 d-inline titles">Fecha de creación: </p> <p class="m-0 d-inline">{{exercise.created  | date: "fullDate"}}</p>
+            </div>
+            <div class="col-md-2">
+                <p class="m-0 d-inline titles">Categoría: </p> <p class="m-0 d-inline">{{exercise.section}}</p>
             </div>
             <div class="col-md-2">
             </div>
