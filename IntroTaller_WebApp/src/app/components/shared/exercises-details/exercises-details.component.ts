@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CodeModel } from '@ngstack/code-editor';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 
 @Component({
@@ -58,7 +59,21 @@ export class ExercisesDetailsComponent implements OnInit {
     "details":"Realice una función que elimine un nodo de un árbol, tomando en cuenta los siguientes casos:\ncaso1: Borrar un nodo sin hijos, se borra simplemente.\ncaso2: Borrar un nodo con 1 hijo, el hijo lo sustituye.\ncaso3: Sustituirlo por el mayor de los menores o el menor de los mayores."
   };
 
-  examples = [];
+   examples = [];
+
+   codeModel: CodeModel = {
+      language: 'python',
+      uri: '',
+      value: this.exercise.solution.code,
+      dependencies: ['@types/node', '@ngstack/translate', '@ngstack/code-editor']
+   };
+
+   options = {
+      dimension:{
+         height: 500,
+         width:1000
+       }
+   };
 
   constructor() { }
 

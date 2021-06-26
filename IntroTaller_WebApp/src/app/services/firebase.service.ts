@@ -140,13 +140,4 @@ export class FirebaseService {
     console.log(list);
     return list;
   }
-
-  //Ejercicio por su código
-  excercisesByID(code: number): Ejercicio {
-    let exercise: Ejercicio;
-    this.rootRef.child(code.toString()).once('value', (snapshot) => {
-      exercise = snapshot.val();
-    });
-    return exercise;
-  }
 }
