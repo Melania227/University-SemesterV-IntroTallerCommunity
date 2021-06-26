@@ -1,11 +1,11 @@
 .signUpSide{
-    background-color: #24305E;
+    background-color: #EBEBEC;
     border-style: none;
-    color: white;
+    color: #1C1D4B;
 }
 
 .anotherSide{
-    background-color: #F76C6C;
+    background-color: #1C1D4B;
 }
 
 .fa-user-circle{
@@ -23,7 +23,7 @@ button:focus {
 }
 
 .btn{
-    background: #F8E9A1;
+    background: #1C1D4B;
     color: white;
     border-radius: 5px;
     font-size: 20px;
