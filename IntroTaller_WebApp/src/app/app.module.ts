@@ -23,8 +23,9 @@ import { CreateExerciseComponent } from './components/exercises-list-CRUD/create
 import { EditExerciseComponent } from './components/exercises-list-CRUD/edit-exercise/edit-exercise.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CodeEditorModule } from '@ngstack/code-editor';
 
 
@@ -53,7 +54,7 @@ import { CodeEditorModule } from '@ngstack/code-editor';
     AngularFireAuthModule,
     ReactiveFormsModule,
     FormsModule,
-    
+    HttpClientModule,
     CodeEditorModule.forRoot()
   ],
   providers: [],
