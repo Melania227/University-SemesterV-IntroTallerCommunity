@@ -1,0 +1,35 @@
+body{
+    width: fit-content;
+}
+
+
+.card{
+    height: auto;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4%;
+    margin-top: 3%;
+    border: none;
+}
+
+.exercise-form{
+    background-color: #EBEBEC;
+}
+
+#file-chosen{
+    margin-left: 0.3rem;
+    font-family: sans-serif;
+}
+
+p{
+    border-top: 3px solid #1D1E4E;
+}
+
+h3{
+    color: #1D1E4E;
+}
+
+.form-control{
+    border-color: #b5b5bd;
+}

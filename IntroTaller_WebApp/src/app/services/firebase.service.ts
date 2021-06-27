@@ -15,9 +15,9 @@ export class FirebaseService {
   }
 
   //Obtener todos los ejercicios :)
-  getAllExercises(): Ejercicio[] {
+  async getAllExercises(): Promise<Ejercicio[]> {
     let list: Ejercicio[] = [];
-    this.rootRef.once('value', (snapshot) => {
+    await this.rootRef.once('value', (snapshot) => {
       snapshot.forEach(function (childSnapshot) {
         let data = childSnapshot.val();
         list.push(data);
@@ -32,9 +32,9 @@ export class FirebaseService {
   }
 
   //Eliminar un ejercicio dado el código
-  deleteExcercise(codigo: string): string {
+  async deleteExcercise(codigo: string): Promise<string> {
     let mensaje: string;
-    this.rootRef
+    await this.rootRef
       .child(codigo)
       .remove()
       .then(() => {
@@ -47,10 +47,10 @@ export class FirebaseService {
   }
 
   //Agrega ejercicio, retorna true si hubo error, false si no
-  addExcercise(ejercicio): boolean {
+  async addExcercise(ejercicio): Promise<boolean> {
     let recordKey = "0";
     let error = false;
-    this.rootRef.once('value', (snapshot) => {
+    await this.rootRef.once('value', (snapshot) => {
         recordKey = (snapshot.numChildren()+ 1).toString();
     }).then(() => {this.rootRef.child(recordKey).set(ejercicio).then(() => {error = false;}).catch((err) => {error = true;});
     });
@@ -58,10 +58,10 @@ export class FirebaseService {
   }
 
   //Editar ejercicio, retorna true si hubo error, false si no
-  editExcercise(ejercicio: Ejercicio): boolean {
+  async editExcercise(ejercicio: Ejercicio): Promise<boolean> {
     let recordKey = ejercicio.code.toString();
     let error = false;
-    this.rootRef
+    await this.rootRef
       .child(recordKey)
       .update(ejercicio)
       .then(() => {
@@ -74,9 +74,9 @@ export class FirebaseService {
   }
 
   //Ultimos 10 ejercicios agregados a la BD
-  lastTenExcercises(): Ejercicio[] {
+  async lastTenExcercises(): Promise<Ejercicio[]> {
     let list: Ejercicio[] = [];
-    this.rootRef.once('value', (snapshot) => {
+    await this.rootRef.once('value', (snapshot) => {
       snapshot.forEach(function (childSnapshot) {
         let data = childSnapshot.val();
         list.push(data);
@@ -88,9 +88,9 @@ export class FirebaseService {
 
 
   //Ejercicio por su código
-  excercisesByID(code: number): Ejercicio {
+  async excercisesByID(code: string): Promise<Ejercicio> {
     let exercise: Ejercicio;
-    this.rootRef.child(code.toString()).once('value', (snapshot) => {
+    await this.rootRef.child(code).once('value', (snapshot) => {
       exercise = snapshot.val();
     });
     return exercise;
@@ -98,12 +98,12 @@ export class FirebaseService {
 
 
   //Ejercicios por nivel
-  excercisesByLevel(level: number): Ejercicio[] {
+  async excercisesByLevel(level: string): Promise<Ejercicio[]> {
     let list: Ejercicio[] = [];
-    this.rootRef.once('value', (snapshot) => {
+    await this.rootRef.once('value', (snapshot) => {
       snapshot.forEach(function (childSnapshot) {
         let data = childSnapshot.val();
-        if (data.level == level.toString) {
+        if (data.level == level) {
           list.push(data);
           }
       });
@@ -113,9 +113,9 @@ export class FirebaseService {
   }
 
   //Ejercicios por categoria
-  excercisesByCat(categoria: string): Ejercicio[] {
+  async excercisesByCat(categoria: string): Promise<Ejercicio[]> {
     let list: Ejercicio[] = [];
-    this.rootRef.once('value', (snapshot) => {
+    await this.rootRef.once('value', (snapshot) => {
       snapshot.forEach(function (childSnapshot) {
         let data = childSnapshot.val();
         if (data.section == categoria) {
@@ -127,9 +127,9 @@ export class FirebaseService {
     return list;
   }
 
-  filterbyCreator(name: string): Ejercicio[] {
+  async filterbyCreator(name: string): Promise<Ejercicio[]> {
     let list: Ejercicio[] = [];
-    this.rootRef.once('value', (snapshot) => {
+    await this.rootRef.once('value', (snapshot) => {
       snapshot.forEach(function (childSnapshot) {
         let data = childSnapshot.val();
         if (data.creator.includes(name)) {
