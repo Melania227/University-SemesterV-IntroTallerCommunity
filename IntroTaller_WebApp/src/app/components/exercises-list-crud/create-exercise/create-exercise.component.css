@@ -1,0 +1,75 @@
+
+
+body{
+    width: fit-content;
+}
+
+
+.card{
+    height: auto;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3%;
+    margin-top: 3%;
+    border: none;
+    background-color: #ebebec;
+    border-color: #ebebec;
+}
+
+.exercise-form{
+    background-color: #979eb8;
+    background-image: url('../../../../assets/images/escheresque-dark.png');
+    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+#file-chosen{
+    margin-left: 0.3rem;
+    font-family: sans-serif;
+}
+
+p{
+    border-top: 3px solid #1D1E4E;
+}
+
+h3{
+    font-size: 45px;
+    text-align: right;
+    font-weight: 500;
+    color: #1D1E4E;
+    margin-right: 2%;
+
+}
+
+.form-control{
+    border-color: #b5b5bd;
+}
+
+.form-label, .txt, .text-danger{
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-primary{
+    background-color: #1D1E4E;
+    border-color: #1d1e4e81;
+}
+
+.left-b{
+    border-left: 1px solid #1D1E4E;
+}
+
+.left-a{
+    border-right: 1px solid #1D1E4E;
+}
+
+.btn-info{
+    background-color: #999999 !important;
+    border-color: #a5a5a581 !important;
+}
+
+.textbtn{
+    font-family: 'Newsreader', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #1D1E4E;
+}
