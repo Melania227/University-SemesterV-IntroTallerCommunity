@@ -49,7 +49,8 @@ export class ExercisesDetailsComponent implements OnInit {
          dependencies: ['@types/node', '@ngstack/translate', '@ngstack/code-editor']
       };
       this.examples = this.exercise.examples;
-      this.flagLoading = false;
+      
+      setTimeout(() => { this.flagLoading = false;}, 500);
    }); 
   }
 
