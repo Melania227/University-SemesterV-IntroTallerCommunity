@@ -4,6 +4,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { CodeEditorModule, CodeModel } from '@ngstack/code-editor';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-create-exercise',
@@ -18,9 +20,10 @@ export class CreateExerciseComponent implements OnInit {
   btn_bool: Boolean;
   editable: Boolean;
   codeModel: CodeModel;
+  progress:number;
   @ViewChild('codeEditor') codeEditor_: ElementRef<HTMLInputElement>;
 
-  constructor(private fb: FormBuilder, private us: FileUploadService) {
+  constructor(private fb: FormBuilder, private us: FileUploadService,private firebase: FirebaseService) {
     this.createForm();
     this.textContent = 'No se ha cargado ningún archivo';
     this.btn_bool= this.editable = false;
@@ -107,7 +110,6 @@ export class CreateExerciseComponent implements OnInit {
       this.inputs.at(i).get('name').touched
     );
   }
-
   inputTInvalido(i: number) {
     return (
       this.inputs.at(i).get('type').invalid &&
@@ -122,7 +124,6 @@ export class CreateExerciseComponent implements OnInit {
       this.outputs.at(i).get('name').touched
     );
   }
-
   outputTInvalido(i: number) {
     return (
       this.outputs.at(i).get('type').invalid &&
@@ -137,7 +138,6 @@ export class CreateExerciseComponent implements OnInit {
       this.examples.at(i).get('call').touched
     );
   }
-
   exampleRInvalido(i: number) {
     return (
       this.examples.at(i).get('result').invalid &&
@@ -155,7 +155,6 @@ export class CreateExerciseComponent implements OnInit {
       })
     );
   }
-
   removeExample(i: number) {
     this.examples.removeAt(i);
   }
@@ -169,7 +168,6 @@ export class CreateExerciseComponent implements OnInit {
       })
     );
   }
-
   removeInput(i: number) {
     this.inputs.removeAt(i);
   }
@@ -183,7 +181,6 @@ export class CreateExerciseComponent implements OnInit {
       })
     );
   }
-
   removeOutput(i: number) {
     this.outputs.removeAt(i);
   }
@@ -210,9 +207,10 @@ export class CreateExerciseComponent implements OnInit {
         ? this.showCode(data)
         : undefined
       });
+
+
     }
   }
-
   removeCodeFile() {
     this.code = "";
     this.btn_bool = this.editable = false;
@@ -243,16 +241,6 @@ export class CreateExerciseComponent implements OnInit {
   }
 
   guardar() {
-    
-    /*console.log(this.code);
-    this.codeModel.value = "gatito";*/
-    /* this.us.uploadFile(this.fileToUpload, code);
-    this.form = this.fb.group({
-      ...this.form.controls,
-      code_File: [
-        'codes/' + this.fileToUpload.name + '_' + code
-      ],
-    });*/
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach((control) => {
         if (control instanceof FormGroup) {
@@ -264,23 +252,27 @@ export class CreateExerciseComponent implements OnInit {
         }
       });
     }
+    let result:Ejercicio = this.form.value;
+    result.level = 0
+    result.created = "2020-12-15";
+    result.creator = "Velvet Chimichanga";
     if (this.fileToUpload==null){
-      this.form = this.fb.group({
-        ...this.form.controls,
-        code: this.code
-      })
+      result.solution.code = this.code;
+      this.firebase.addExcercise(result);
     }
     else{
-      this.form = this.fb.group({
-        ...this.form.controls,
-        code: [
-          'codes/' + this.fileToUpload.name + '_' + "code"
-        ],
-      })
+      result.solution.code = result.created+this.fileToUpload.name+"_";
+      this.firebase.addExcercise(result).then(() => {
+        this.us.uploadFile(this.fileToUpload,result.created).then(() => {
+          this.us.getFile(result.solution.code);
+          }
+        );
+      
+      });
     }
-    let result:Ejercicio = this.form.value;
-    console.log(result);
+    
   }
+
 }
 
 

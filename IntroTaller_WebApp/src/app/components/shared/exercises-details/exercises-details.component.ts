@@ -53,7 +53,7 @@ export class ExercisesDetailsComponent implements OnInit {
        ]
     },
     "level":3,
-    "created": new Date("2021-06-17"),
+    "created": "2021-06-17",
     "name":"Eliminar nodo",
     "section":"Árboles",
     "details":"Realice una función que elimine un nodo de un árbol, tomando en cuenta los siguientes casos:\ncaso1: Borrar un nodo sin hijos, se borra simplemente.\ncaso2: Borrar un nodo con 1 hijo, el hijo lo sustituye.\ncaso3: Sustituirlo por el mayor de los menores o el menor de los mayores."
