@@ -19,7 +19,7 @@ const APP_ROUTES : Routes = [
     {path: 'exercises-admin', 
         component: ExercisesAdminsComponent,
         children:[
-            {path: "", redirectTo: "list", pathMatch: "full"},
+            {path: "", component: ExercisesAdminsComponent},
             {path: 'list', component: ExercisesListCRUDComponent, },
             {path: 'add', component: CreateExerciseComponent},
             {path: 'edit/:id', component: EditExerciseComponent},
