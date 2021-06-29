@@ -47,10 +47,17 @@ export class FirebaseService {
     let error = false;
     await this.rootRef.once('value', (snapshot) => {
         recordKey = (snapshot.numChildren()+ 1).toString();
-    }).then(() => {this.rootRef.child(recordKey).set(ejercicio).then(() => {error = false;}).catch((err) => {error = true;});
-    });
+    })
+    ejercicio.code = recordKey;
+    await this.rootRef.child(recordKey).set(ejercicio).then(() => {
+      error = false;console.log(recordKey)
+    }).catch((err) => {
+      error = true; console.log(error)
+    })
     return error;
   }
+
+  
 
   //Editar ejercicio, retorna true si hubo error, false si no
   async editExcercise(ejercicio: Ejercicio): Promise<boolean> {

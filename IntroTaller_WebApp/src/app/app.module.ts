@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { APP_ROUTING } from './app.routes';
 import { AppComponent } from './app.component';
 
 import { environment } from "../environments/environment";
@@ -23,13 +22,14 @@ import { ExercisesListCRUDComponent } from './components/exercises-list-crud/exe
 import { CreateExerciseComponent } from './components/exercises-list-CRUD/create-exercise/create-exercise.component';
 import { EditExerciseComponent } from './components/exercises-list-CRUD/edit-exercise/edit-exercise.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
+import { ExercisesAdminsComponent } from './components/exercises-admins/exercises-admins.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CodeEditorModule } from '@ngstack/code-editor';
-import { ExercisesAdminsComponent } from './components/exercises-admins/exercises-admins.component';
 
+import { APP_ROUTING } from './app.routes';
 
 @NgModule({
   declarations: [
