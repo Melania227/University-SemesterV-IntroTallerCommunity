@@ -23,11 +23,6 @@ export class FirebaseService {
         list.push(data);
       });
     });
-    this.rootRef.child("14").once('value', (snapshot) => {
-      console.log(snapshot.val());
-
-    });
-
     return list;
   }
 

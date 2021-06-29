@@ -17,7 +17,7 @@ export class AppComponent {
 
   ngOnInit():void{
     
-    (this.firebase.excercisesByID((this.excerciseCode))).then((data) => console.log(data));
+    //(this.firebase.excercisesByID((this.excerciseCode))).then((data) => console.log(data));
 
   }
 

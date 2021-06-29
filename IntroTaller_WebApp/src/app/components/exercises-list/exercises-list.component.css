@@ -1,0 +1,61 @@
+.gigantContainer{
+    background-color: #EBEBEC;
+}
+
+.mainTitle{
+    color: #1C1D4B;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.line{
+    border: none;
+    height: 2px;
+    color: #1C1D4B;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.card-title{
+    
+   /*  padding-top: 20px; */
+    font-weight: 500;
+    color: #1C1D4B;
+}
+
+.nombreRow{
+    /* margin-top: -56px; */
+    margin-top: -36px;
+}
+
+.subtitle1{
+    font-weight: 500;
+    font-size: 23px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.stars{
+    font-size: 16px;
+    text-align: right;
+    color: #1C1D4B;
+}
+
+.subtitle2{
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.regular-text1{
+    font-size: 17px;
+}
+
+.regular-text2{
+    font-size: 15px;
+}
+
+a:link {
+    text-decoration: none;
+}
