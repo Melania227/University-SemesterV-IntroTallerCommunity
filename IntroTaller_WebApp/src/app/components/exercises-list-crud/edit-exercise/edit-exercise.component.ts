@@ -77,7 +77,9 @@ export class EditExerciseComponent implements OnInit {
       };
     }
     else{
-    
+      //this.us.getFile(value.solution.code);
+      this.textContent = value.solution.code;
+      this.btn_bool = this.editable = true;
     }
     this.form.reset(
       {
@@ -223,7 +225,7 @@ export class EditExerciseComponent implements OnInit {
       this.fileToUpload = event.target.files[0];
       this.btn_bool = this.editable = true;
       this.textContent = this.fileToUpload.name;
-
+      
       function readFile(file){
         return new Promise((resolve,reject) => {
           var reader = new FileReader();
