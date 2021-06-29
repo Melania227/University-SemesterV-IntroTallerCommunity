@@ -10,13 +10,17 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 export class ExercisesListCRUDComponent implements OnInit {
   calification = [false, false, false, false, false];
   exercises:Ejercicio[];
+  flagLoading: boolean = true;
 
   constructor(
     public firebase: FirebaseService
   ) { }
 
   ngOnInit(): void {
-    (this.firebase.getAllExercises().then((data) => this.exercises = data));
+    (this.firebase.getAllExercises().then((data) => {
+      this.exercises = data
+      setTimeout(() => { this.flagLoading = false;}, 500);
+    }));
   }
 
   getStars(exercise: Ejercicio){
