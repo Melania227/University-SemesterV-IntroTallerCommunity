@@ -5,7 +5,7 @@ export interface Ejercicio {
   examples: Ejemplo[];
   solution: Solucion;
   level: number;
-  created: Date;
+  created: string;
   name: string;
   section: string;
   details: string;
