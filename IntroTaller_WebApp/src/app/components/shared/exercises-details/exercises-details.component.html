@@ -1,1 +1,181 @@
-<p>exercises-details works!</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">  
+
+<div class="row description">
+    <div class="col-2"></div>
+    <div class="col-8 pt-5 mt-5 px-5">
+        <div class="card text-left">
+            <div class="card-body">
+                <div class="row nombreRow">
+                    <h2 class="card-title titles">{{exercise.name}}</h2>
+                </div>
+                <p class="subtitle1 titles">Descripción: </p>
+                <p class="regular-text1 regular-t">{{exercise.details}}</p>
+                <hr class="mt-3 mb-5">
+                <p class="subtitle2 titles">Categoría: </p>
+                <p class="regular-text2 regular-t">{{exercise.section}}</p>
+                <p class="subtitle2 titles">Creador: </p>
+                <p class="regular-text2 regular-t">{{exercise.creator}}</p>
+                <div class="row">
+                    <div class="col-5">
+                        <p class="subtitle2 titles">Fecha de creación: </p>
+                        <p class="regular-text2  regular-t">{{exercise.created  | date: "fullDate"}}</p>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-3 stars">
+                        <br>
+                        <ng-container *ngFor="let star of calification">
+                            <i class="fas fa-star" *ngIf="star"></i>
+                            <i class="far fa-star" *ngIf="!star"></i>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+<div class="row solution">
+    <div class="col-2"></div>
+    <div class="col-8 col-solution py-5">
+        <div class="card text-center pt-5 px-5">
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-4">
+                        <p class="subtitle2 titles">Llamada</p>
+                        <p class="regular-text2 regular-t">{{exercise.call}}</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="subtitle2 titles">Inputs</p>
+                        <p class="regular-text2 regular-t" *ngFor="let input of exercise.solution.inputs">{{input.name}}: {{input.type}}</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="titles subtitle2">Outputs</p>
+                        <p class="regular-text2 regular-t" *ngFor="let output of exercise.solution.outputs">{{output.name}}: {{output.type}}</p>
+                    </div>
+                </div>
+                <button class="btn">Mostrar solución</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+<div class="row examples b-5">
+    <div id="carouselExampleControls" class="carousel slide m-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-3">
+                    <div class="card example-card text-left">
+                      <div class="card-body">
+                        <h4 class="card-title titles">Ejemplo</h4>
+                        <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">hola()</p> <br>
+                        <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">Hola</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
+                        <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">Cero por mamon</p> <br>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card example-card text-left">
+                        <div class="card-body">
+                          <h4 class="card-title titles">Ejemplo</h4>
+                          <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">hola()</p> <br>
+                          <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">Hola</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
+                          <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">Cero por mamon</p> <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card example-card text-left">
+                        <div class="card-body">
+                          <h4 class="card-title titles">Ejemplo</h4>
+                          <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">hola()</p> <br>
+                          <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">Hola</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
+                          <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">Cero por mamon</p> <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-3">
+                    <div class="card example-card text-left">
+                      <div class="card-body">
+                        <h4 class="card-title titles">Ejemplo</h4>
+                        <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">hola()</p> <br>
+                        <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">Hola</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
+                        <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">Cero por mamon</p> <br>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card example-card text-left">
+                        <div class="card-body">
+                          <h4 class="card-title titles">Ejemplo</h4>
+                          <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">hola()</p> <br>
+                          <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">Hola</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
+                          <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">Cero por mamon</p> <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card example-card text-left">
+                        <div class="card-body">
+                          <h4 class="card-title titles">Ejemplo</h4>
+                          <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">hola()</p> <br>
+                          <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">Hola</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
+                          <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">Cero por mamon</p> <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+
+<!-- 
+    <div class="row examples">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card examplesCard p-5 text-left">
+                <img class="card-img-top" src="" alt="">
+                <div class="card-body">
+                <h4 class="card-title mb-3 titles">Ejemplos</h4>
+                <div class="row eachExample mb-3" *ngFor="let example of examples">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">{{example.call}}</p> <br>
+                        <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline" *ngIf="example.comment != ''">{{example.comment}}</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br>
+                        <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">{{example.result}}</p> <br>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+-->

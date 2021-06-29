@@ -1,0 +1,96 @@
+.t-name{
+    text-transform: uppercase;
+}
+
+.description{
+    background-color: #EBEBEC;
+}
+
+.description .card{
+    margin-bottom: -55px;
+    padding:30px;
+}
+
+.solution{
+    background-color: #979EB8;
+}
+
+.examples{
+    background-color: #EBEBEC;
+}
+
+.col-solution{
+    margin-top: 30px;
+}
+
+.solution{
+    padding-top: 40px;
+}
+
+.card-title{
+    font-size: 85px;
+    text-align: right;
+    padding-top: 20px;
+    font-weight: 500;
+    color: #1C1D4B;
+}
+
+.subtitle1{
+    font-weight: 500;
+    font-size: 30px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.subtitle2{
+    font-weight: 500;
+    font-size: 23px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.regular-text1{
+    font-size: 17px;
+}
+
+.regular-text2{
+    font-size: 15px;
+}
+
+.stars{
+    font-size: 23px;
+    text-align: right;
+    color: #1C1D4B;
+}
+
+.btn{
+    margin-bottom: -50px;
+    background-color: #1C1D4B;
+    border-color: #1C1D4B;;
+    color: white;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.nombreRow{
+    margin-top: -118px;
+}
+
+p{
+    white-space: pre-wrap;
+}
+
+.example-card{
+    background-color: #1C1D4B;
+    color: white !important;
+    padding: 10px;
+}
+
+.example-card .card-title{
+    color: white !important;
+    font-size: 40px;
+    padding: 0;
+}

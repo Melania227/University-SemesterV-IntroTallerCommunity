@@ -1,7 +1,248 @@
 
-<ngs-code-editor 
-  theme="vs-dark" 
-  [readOnly]="readOnly"
-  [codeModel]="codeModel"
-  [options]="options">
-</ngs-code-editor>
+<section class="exercise-form p-3">
+    <form [formGroup]="form" (ngSubmit)="guardar()">
+        <div class="card form-group" id="info-g">
+            <h3 class="titles">Información General</h3>
+            <p></p>
+            <div class="row">
+                <div class="col m-1">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control" type="text" placeholder="Ingrese un nombre" formControlName="name"
+                        [class.is-invalid]="nombreInvalido" />
+                        <small *ngIf="nombreInvalido" class="text-danger">
+                            *Campo requerido
+                        </small>
+                </div>
+                <div class="col m-1">
+                    <label class="form-label">Categoría</label>
+                    <input class="form-control" type="text" placeholder="Ingrese una categoría" formControlName="section"
+                        [class.is-invalid]="catInvalido" />
+                        <small *ngIf="catInvalido" class="text-danger">
+                            *Campo requerido
+                        </small>
+                </div>
+            </div>
+            <div class=" row">
+                <div class="m-1">
+                    <label class="form-label">Descripción</label>
+                    <textarea class="form-control text-area"  placeholder="Ingrese una descripción del ejerecicio" formControlName="details"></textarea>
+                </div>
+            </div>
+            <div class=" row">
+                <div class="m-1">
+                    <label class="form-label">Llamado de la función</label>
+                    <input class="form-control" type="text" placeholder="Ingrese el llamado de la función. Ej: cuentaDigitos(num)" formControlName="call"
+                        [class.is-invalid]="callInvalido" />
+                        <small *ngIf="callInvalido" class="text-danger">
+                            *Campo requerido
+                        </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="Solution" [formGroup]="solution">
+            <div class="card form-group">
+                <h3 class="titles">Código</h3>
+                <p></p>
+                <div class="container-b"></div>
+                <div class="row">
+                    <div class="form-control">
+                        <ngs-code-editor #codeEditor theme="vs" value [readOnly]="editable" [codeModel]="codeModel" (valueChanged)="addCodeText($event)" >
+                        </ngs-code-editor>
+                    </div>
+                </div>
+                <div class="row mt-3 justify-content-center">
+                    <input type="file" id="actual-btn" (change)="addCodeFile($event)" hidden [disabled]="btn_bool" accept=".txt,.py">
+                    <div *ngIf="!btn_bool" class="col-2  d-flex justify-content-end "><label class="btn btn-primary" 
+                        for="actual-btn">Cargar archivo</label></div>
+                    <div *ngIf="btn_bool==true" class="col-2  d-flex justify-content-end "><label class="btn btn-info"
+                        for="actual-btn">Cargar archivo</label></div>
+                    <div class="col-5">
+                        <input class="form-control" value={{textContent}} readonly/>
+                    </div>
+                    <div *ngIf="btn_bool==true" class="col-1  d-flex  "><button class="btn btn-primary" 
+                        for="actual-btn" (click)="removeCodeFile()" > x </button></div>
+                </div>
+            </div>
+            <div class="card form-group">
+                <h3 class="titles">Entradas</h3>
+                <p></p>
+                <div class="row" *ngIf="inputs.controls.length<1">
+                    <h4 class="form-label">No hay entradas agregadas 
+                        <button type="button"
+                            class="btn btn-primary mt-auto mb-1" (click)="addInput()">
+                            +
+                        </button></h4>
+                </div>
+                <div formArrayName="inputs" *ngFor="let control of inputs.controls; let i = index">
+                    <div class="form-group" [formGroupName]="i">
+                        <div *ngIf="i!=0">
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 m-1">
+                                <label class="form-label">Nombre</label>
+                                <input class="form-control" formControlName="name" placeholder="Ingrese el nombre de la entrada" [class.is-invalid]="inputNInvalido(i)" />
+                                <small *ngIf="inputNInvalido(i)" class="text-danger">
+                                    *Campo requerido
+                                </small>
+                            </div>
+                            <div class="col-5 m-1">
+                                <label class="form-label">Tipo</label>
+                                <input class="form-control" formControlName="type" placeholder="Ingrese el tipo de la entrada" [class.is-invalid]="inputTInvalido(i)" />
+                                <small *ngIf="inputTInvalido(i)" class="text-danger">
+                                    *Campo requerido
+                                </small>
+                            </div>
+                            <div class="col align-items-end" style="display: flex; flex-direction: column;">
+                                <div class="row form-label">&nbsp;</div>
+                                <div class="row ">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary mt-auto mb-auto"
+                                            (click)="removeInput(i)">
+                                            x
+                                        </button>
+                                    </div>
+                                    <div class="col" *ngIf="i==(inputs.controls.length)-1">
+                                        <button type="button" class="btn btn-primary mt-auto mb-auto" (click)="addInput()">
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card form-group ">
+                <h3 class="titles">Salidas</h3>
+                <p></p>
+                <div class="row" *ngIf="outputs.controls.length<1">
+                    <h4 class="form-label">No hay salidas agregadas 
+                        <button type="button"
+                            class="btn btn-primary mt-auto mb-1" (click)="addOutput()">
+                            +
+                        </button></h4>
+                </div>
+                <div formArrayName="outputs" *ngFor="let control of outputs.controls; let i = index">
+                    <div class="form-group" [formGroupName]="i">
+
+                        <div *ngIf="i!=0">
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 m-1">
+                                <label class="form-label">Nombre</label>
+                                <input class="form-control" formControlName="name" placeholder="Ingrese el nombre de la salida" [class.is-invalid]="outputNInvalido(i)" />
+                                <small *ngIf="outputNInvalido(i)" class="text-danger">
+                                    *Campo requerido
+                                </small>
+                            </div>
+                            <div class="col-5 m-1">
+                                <label class="form-label">Tipo</label>
+                                <input class="form-control" formControlName="type" placeholder="Ingrese el tipo de la salida" [class.is-invalid]="outputTInvalido(i)" />
+                                <small *ngIf="outputTInvalido(i)" class="text-danger">
+                                    *Campo requerido
+                                </small>
+                            </div>
+                            <div class="col align-items-end" style="display: flex; flex-direction: column;">
+                                <div class="row form-label">&nbsp;</div>
+                                <div class="row ">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary mt-auto mb-1"
+                                            (click)="removeOutput(i)">
+                                            x
+                                        </button>
+                                    </div>
+                                    <div class="col" *ngIf="i==(outputs.controls.length)-1">
+                                        <button type="button" class="btn btn-primary mt-auto mb-1"
+                                            (click)="addOutput()">
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card form-group">
+            <h3 class="titles">Ejemplos</h3>
+            <p></p>
+            <div class="row" *ngIf="examples.controls.length<1">
+                <h4 class="form-label">No hay ejemplos agregados 
+                    <button type="button"
+                        class="btn btn-primary mt-auto mb-1" (click)="addExample()">
+                        +
+                    </button></h4>
+            </div>
+            <div formArrayName="examples">
+                <div *ngFor="let control of examples.controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div *ngIf="i!=0">
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 m-1">
+                                <label class="form-label">Llamada de Ejemplo #{{i+1}}</label>
+                                <input class="form-control" type="text" placeholder="Ingrese una llamada de ejemplo. Ej: cuentaNumeros(12)" formControlName="call" [class.is-invalid]="exampleCInvalido(i)" />
+                                <small *ngIf="exampleCInvalido(i)" class="text-danger">
+                                    *Campo requerido
+                                </small>
+                            </div>
+                            <div class="col-5 m-1">
+                                <label class="form-label">Resultado</label>
+                                <input class="form-control" type="text" placeholder="Ingrese el resultado de la llamada" formControlName="result" [class.is-invalid]="exampleRInvalido(i)" />
+                                <small *ngIf="exampleRInvalido(i)" class="text-danger">
+                                    *Campo requerido
+                                </small>
+                            </div>
+                            <div class="col align-items-end" style="display: flex; flex-direction: column;">
+                                <div class="row form-label">&nbsp;</div>
+                                <div class="row ">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary mt-auto mb-1"
+                                            (click)="removeExample(i)">
+                                            x
+                                        </button>
+                                    </div>
+                                    <div class="col" *ngIf="i==(examples.controls.length)-1">
+                                        <button type="button" class="btn btn-primary mt-auto mb-1"
+                                            (click)="addExample()">
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="m-1">
+                                <label class="form-label">Comentario</label>
+                                <textarea class="form-control text-area" formControlName="comment" placeholder="Ingrese un comentario sobre la llamada" ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card form-group p-3">
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn left-a textbtn" (click)="guardar()">
+                        Cancelar
+                    </button>
+                </div>
+                <div class="col ">
+                    <div class="d-flex flex-row-reverse">
+                        <button type="submit" class="btn left-b textbtn" (click)="guardar()">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

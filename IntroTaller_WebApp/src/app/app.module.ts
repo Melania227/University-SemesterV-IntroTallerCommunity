@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { APP_ROUTING } from './app.routes';
 import { AppComponent } from './app.component';
 
 import { environment } from "../environments/environment";
@@ -23,9 +24,11 @@ import { CreateExerciseComponent } from './components/exercises-list-CRUD/create
 import { EditExerciseComponent } from './components/exercises-list-CRUD/edit-exercise/edit-exercise.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CodeEditorModule } from '@ngstack/code-editor';
+import { ExercisesAdminsComponent } from './components/exercises-admins/exercises-admins.component';
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { CodeEditorModule } from '@ngstack/code-editor';
     ExercisesListCRUDComponent,
     CreateExerciseComponent,
     EditExerciseComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    ExercisesAdminsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,8 +57,9 @@ import { CodeEditorModule } from '@ngstack/code-editor';
     AngularFireAuthModule,
     ReactiveFormsModule,
     FormsModule,
-    
-    CodeEditorModule.forRoot()
+    HttpClientModule,
+    CodeEditorModule.forRoot(),
+    APP_ROUTING
   ],
   providers: [],
   bootstrap: [AppComponent]
