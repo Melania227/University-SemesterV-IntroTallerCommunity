@@ -1,1 +1,41 @@
-<p>exercises-list works!</p>
+<div class="container gigantContainer my-5 p-5">
+    <div class="row">
+        <p class="mainTitle titles">Listado de ejercicios</p>
+        <div class="col-6" *ngFor="let p of prueba">
+            <div class="card text-left my-4">
+              <div class="card-body">
+                <div class="row nombreRow">
+                  <h2 class="card-title titles">Nombre del ejercicio</h2>
+                </div>
+                <div class="row my-2 mx-1">
+                  <div class="col-9">
+                    <p class="subtitle1 d-inline titles">Categoría: </p>
+                    <p class="d-inline regular-text1 regular-t">Categoria a la que pertenece</p>
+                  </div>
+                  <div class="col-3 stars py-1">
+                    <ng-container *ngFor="let star of calification">
+                        <i class="fas fa-star" *ngIf="star"></i>
+                        <i class="far fa-star" *ngIf="!star"></i>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="row mx-1">
+                  <p class="subtitle1 titles d-inline">Descripción: </p>
+                  <p class="regular-text1 d-inline regular-t">Descipción perteneciente al ejercicio que se presenta en el card, que ganas de mimir ayuda</p>
+                  <hr>
+                </div>
+                <div class="row finalRow mb-2 mx-1">
+                  <div class="col-6">
+                    <p class="subtitle2 titles">Creador: </p>
+                    <p class="regular-text2 regular-t">Diego Mora Rojas</p>
+                  </div>
+                  <div class="col-6">
+                    <p class="subtitle2  titles">Fecha de creación: </p>
+                    <p class="regular-text2 regular-t">06/28/2021</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
