@@ -45,9 +45,14 @@ export class FirebaseService {
   async addExcercise(ejercicio): Promise<boolean> {
     let recordKey = "0";
     let error = false;
-    await this.rootRef.once('value', (snapshot) => {
-        recordKey = (snapshot.numChildren()+ 1).toString();
-    })
+     await this.rootRef.limitToLast(1).once('value', snap => {
+      snap.forEach(e => {
+        let val: Ejercicio = e.val();
+        recordKey = (parseInt(e.val().code)+1).toString();
+        console.log(val)
+      })    
+    });
+    console.log(recordKey);
     ejercicio.code = recordKey;
     await this.rootRef.child(recordKey).set(ejercicio).then(() => {
       error = false;console.log(recordKey)
@@ -78,7 +83,7 @@ export class FirebaseService {
   //Ultimos 10 ejercicios agregados a la BD
   async lastTenExcercises(): Promise<Ejercicio[]> {
     let list: Ejercicio[] = [];
-    await this.rootRef.once('value', (snapshot) => {
+    await this.rootRef.orderByKey().limitToLast(10).once('value', (snapshot) => {
       snapshot.forEach(function (childSnapshot) {
         let data = childSnapshot.val();
         list.push(data);

@@ -261,7 +261,7 @@ export class CreateExerciseComponent implements OnInit {
       this.firebase.addExcercise(result);
     }
     else{
-      result.solution.code = result.created+this.fileToUpload.name+"_";
+      result.solution.code = this.fileToUpload.name;
       this.firebase.addExcercise(result).then(() => {
         this.us.uploadFile(this.fileToUpload,result.created).then(() => {
           this.us.getFile(result.solution.code);
