@@ -5,7 +5,7 @@
             <div class="card text-left my-4">
               <div class="card-body">
                 <div class="row nombreRow">
-                  <h2 class="card-title titles">{{exercise.name}}</h2>
+                  <a class="titleRedirection" [routerLink]="['/details', exercise.code]"><h2 class="card-title titles">{{exercise.name}}</h2></a>
                 </div>
                 <div class="row my-2 mx-1">
                   <div class="col-lg-9">
