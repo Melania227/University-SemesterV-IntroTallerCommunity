@@ -8,7 +8,6 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./exercises-list.component.css']
 })
 export class ExercisesListComponent implements OnInit {
-  prueba=[1,4,6.6,8,98,6,5,4,3,342,3,456,73,3];
   calification = [false, false, false, false, false];
   exercises:Ejercicio[];
 
