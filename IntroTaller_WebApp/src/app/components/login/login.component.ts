@@ -27,6 +27,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let esAdmin = localStorage.getItem('token');
+    if (esAdmin != undefined) {
+      console.log('Ya está logueado');
+      this.router.navigate(['/home']);
+    }
     this.navService.changeData("false");
     //this.loggingService.logStatusChange(status);
     this.navService.statusUpdated.emit("GATITOS GORDOS");
