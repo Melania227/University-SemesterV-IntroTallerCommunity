@@ -1,1 +1,79 @@
-<p>home works!</p>
+
+ <section class="pt-3">
+    <app-exercises-list [isHome]=home></app-exercises-list>
+    <div class="container-fluid calific py-5">
+        <div class="container text-center py-5">
+            <p class="mainTitle titles">Niveles de dificultad</p>
+            <p class="txt regular-t">Selecciona para visualizar los ejercicios por nivel de dificultad</p>
+            <p class="p"></p>
+            <div class="row py-3">
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/0']">
+                        <div class="stars-space">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/1']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/2']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/3']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/4']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/5']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
