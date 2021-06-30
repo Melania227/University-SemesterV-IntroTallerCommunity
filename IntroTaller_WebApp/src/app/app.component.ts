@@ -20,7 +20,6 @@ export class AppComponent {
   }
 
   isStudent(){
-    console.log(localStorage.getItem('token'));
     return localStorage.getItem('token')==undefined;
   }
 

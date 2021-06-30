@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "./auth.guard";
 import { CreateCategoryComponent } from "./components/create-category/create-category.component";
 import { ExercisesAdminsComponent } from "./components/exercises-admins/exercises-admins.component";
 import { CreateExerciseComponent } from "./components/exercises-list-CRUD/create-exercise/create-exercise.component";
@@ -13,11 +14,12 @@ import { SignUpComponent } from "./components/sign-up/sign-up.component";
 const APP_ROUTES : Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'login', component: LoginComponent},
-    {path: 'signup', component: SignUpComponent},
+    {path: 'signup', component: SignUpComponent, canActivate: [AuthGuard]},
     {path: 'create-category', component: CreateCategoryComponent},
     {path: 'exercises', component: ExercisesListComponent},
     {path: 'exercises-admin', 
         component: ExercisesAdminsComponent,
+        canActivate: [AuthGuard],
         children:[
             {path: "", redirectTo: "list", pathMatch: "full"},
             {path: 'list', component: ExercisesListCRUDComponent, },
