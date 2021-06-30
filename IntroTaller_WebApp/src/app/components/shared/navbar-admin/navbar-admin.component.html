@@ -17,7 +17,7 @@
             <li class="nav-item">
                 <a class="nav-link px-5 py-3" [routerLink]="['/exercises-admin']">Listado de ejercicios</a>
             </li>
-            <form class="d-flex px-5 mx-5">
+            <form class="d-flex px-5 mx-5" *ngIf="permiso">
                 <input class="form-control d-none d-lg-inline" type="search" placeholder="Buscar.." aria-label="Search" [(ngModel)]="filterTerm" (keyup.enter)="search()" name="gato">
             </form>
         </ul>

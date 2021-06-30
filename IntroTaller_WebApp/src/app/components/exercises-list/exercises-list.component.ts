@@ -15,7 +15,7 @@ import { NavegadorService } from 'src/app/services/navegador.service';
 export class ExercisesListComponent implements OnInit {
 
   filterTerm: string = "";
-
+  cantidadEjer: number = 10;
   calification = [false, false, false, false, false];
   exercises: Ejercicio[];
   flagLoading: boolean = true;
@@ -137,4 +137,11 @@ export class ExercisesListComponent implements OnInit {
     return this.calification;
   }
 
+  buscarEjercicios(){
+    (this.firebase.lastXExcercises(this.cantidadEjer).then((data) => {
+      this.exercises = data.reverse();
+      setTimeout(() => { this.flagLoading = false; }, 500);
+    }));
+
+  }
 }

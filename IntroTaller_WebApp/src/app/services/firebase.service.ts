@@ -76,11 +76,11 @@ export class FirebaseService {
       votesInfo = snapshot.val();
       this.starsRef
       .child(code)
-      .update({"id": votesInfo.id, "puntos": (votesInfo.puntos+val), "votos":(votesInfo.votos+1)})
+      .update({"id": votesInfo.id, "puntos": (Number(votesInfo.puntos)+Number(val)), "votos":(Number(votesInfo.votos)+1)})
       .then(() => {
-        let value_ = ((votesInfo.puntos+val)/(votesInfo.votos+1)).toFixed(0);
+        let value_ = ((Number(votesInfo.puntos)+Number(val))/(Number(votesInfo.votos+1)));
         this.excercisesByID(code).then(x => { 
-          parseInt(value_) > 5 ? x.level = 5 : x.level = parseInt(value_);
+            value_ > 5 ? x.level = 5 : x.level = parseInt(value_.toFixed(0));
             this.rootRef.child(code).update(x);
             error = false;
         })
@@ -177,6 +177,20 @@ export class FirebaseService {
     return list;
   }
 
+
+    //Ultimos X ejercicios agregados a la BD
+    async lastXExcercises(num: number): Promise<Ejercicio[]> {
+      let list: Ejercicio[] = [];
+      await this.rootRef.orderByKey().limitToLast(num).once('value', (snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          let data = childSnapshot.val();
+          list.push(data);
+        });
+      });
+      console.log(list);
+      return list;
+    }
+  
 
   //Ejercicio por su código
   async excercisesByID(code: string): Promise<Ejercicio> {

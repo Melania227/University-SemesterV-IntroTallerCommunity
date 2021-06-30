@@ -75,3 +75,10 @@ p{
     box-shadow:-12px 16px 10px 1px #9b9ba881;
     transition: box-shadow 0.3s ease-in-out;
 }
+
+
+.btn-c{
+    background-color: #1C1D4B;
+    border-color: #1C1D4B;;
+    color: white;
+}
