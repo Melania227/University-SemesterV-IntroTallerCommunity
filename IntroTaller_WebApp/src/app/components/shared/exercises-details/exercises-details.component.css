@@ -131,6 +131,13 @@ p{
     margin-right: 25%;
 }
 
+
+ .c{
+    border-top: 3px solid #c3c3d1 !important;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
 #codeShow{
 
     transition: 0.3s ease-in-out;

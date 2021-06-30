@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-5">
                             <p class="subtitle2 titles">Fecha de creación: </p>
-                            <p class="regular-text2  regular-t">{{exercise.created  | date: "fullDate"}}</p>
+                            <p class="regular-text2  regular-t">{{exercise.created}}</p>
                         </div>
                         <div class="col-4"></div>
                         <div class="col-3 stars">
@@ -66,7 +66,8 @@
                             <p class="regular-text2 regular-t" *ngIf="exercise.solution.outputs == null"> - </p>
                         </div>
                     </div>
-                    <button class="btn" (click)="showCode()" >Mostrar solución</button>
+                    <button class="btn" (click)="showCode()" *ngIf="!CodeAllow" >Mostrar solución</button>
+                    <button class="btn" (click)="showCode()"  *ngIf="CodeAllow" >Ocultar solución</button>
                 </div>
             </div>
         </div>
@@ -92,11 +93,12 @@
                         <div class="carousel-inner">
                             <div *ngFor="let group of getGroups(examples,3), index as i" [ngClass]="i==0?'carousel-item active':'carousel-item'">
                                
-                                <div class="row">
-                                    <div *ngFor="let ex of group" class="col-md-4 mb-3">
+                                <div class="row justify-content-center">
+                                    <div *ngFor="let ex of group" class="col-4 mb-3">
                                         <div class="card example-card text-left">
                                           <div class="card-body">
                                             <h4 class="card-title titles">Ejemplo</h4>
+                                            <p class="c"></p>
                                             <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">{{ex.call}}</p> <br>
                                             <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">{{ex.comment}}</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
                                             <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">{{ex.result}}</p> <br>

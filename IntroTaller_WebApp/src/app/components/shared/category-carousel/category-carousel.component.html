@@ -24,8 +24,8 @@
                                     <span class="visually-hidden">Next</span>
                                 </button>
                             </div>
-                            <div class="row">
-                                <div *ngFor="let category of group" class="col mb-3">
+                            <div class="row justify-content-center">
+                                <div *ngFor="let category of group" class="col-4 mb-3">
                                     <div class="card text-center"[routerLink]="['/exercises/category.section']" (click)=listar(category.section)>
                                         <div class="card-body">
                                             <h4 class="regular-t card-title">{{category.section}}</h4>
