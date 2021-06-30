@@ -1,0 +1,33 @@
+.mainTitle{
+    color: #1C1D4B;
+    font-size: 45px !important;
+    margin-bottom: 10px;
+    font-weight: 550;
+}
+
+.container-fluid{
+    background-color: #979eb8;
+background-image: url("https://www.transparenttextures.com/patterns/crissxcross.png");
+}
+
+.txt{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+p{
+    white-space: pre-wrap;
+}
+/* .card-title{
+
+}
+ */
+.card-title{
+    font-size: 25px;
+}
+
+.card:hover{
+    background-color: #1D1E4E;
+    color: white;
+    box-shadow: 0 5px 15px #1D1E4E;
+}

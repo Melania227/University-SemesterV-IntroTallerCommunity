@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-category-carousel',
@@ -6,10 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category-carousel.component.css']
 })
 export class CategoryCarouselComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  categories:string[];
+  flagLoading: boolean = true;
+  
+  constructor(
+    public _firebaseService: FirebaseService
+  ) { 
   }
 
+  ngOnInit() {
+    this._firebaseService.getAllCategories().then((data)=>{
+      this.categories = data;
+      setTimeout(() => { this.flagLoading = false; }, 500);
+    });
+  }
+
+  getGroups(arr:any, numGroups:number) {
+    const perGroup = numGroups;
+    return new Array(Math.ceil(arr.length / numGroups))
+      .fill('')
+      .map((_, i) => arr.slice(i * perGroup, (i + 1) * perGroup));
+  }
 }
