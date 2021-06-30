@@ -121,6 +121,7 @@ export class ExercisesListComponent implements OnInit {
   }
 
   getStars(exercise: Ejercicio) {
+    this.calification = [false,false,false,false,false];
     for (let index = 0; index < exercise.level; index++) {
       this.calification[index] = true;
     }

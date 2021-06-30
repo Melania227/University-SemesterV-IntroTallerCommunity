@@ -3,7 +3,13 @@
     <app-category-carousel></app-category-carousel>
     <app-exercises-list [isHome]=home></app-exercises-list>
     
-    <div class="container-fluid calific py-5">
+    <div class="d-flex justify-content-center loading p-5 m-5" *ngIf="flagLoading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="loaded container-fluid calific py-5" *ngIf="!flagLoading">
         <div class="container text-center py-5">
             <p class="mainTitle titles">Niveles de dificultad</p>
             <p class="txt regular-t">Selecciona para visualizar los ejercicios por nivel de dificultad</p>
