@@ -1,0 +1,129 @@
+
+ <section class="">
+    <app-category-carousel></app-category-carousel>
+    <app-exercises-list [isHome]=home></app-exercises-list>
+    
+    <div class="d-flex justify-content-center loading p-5 m-5" *ngIf="flagLoading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="loaded container-fluid calific py-5" *ngIf="!flagLoading">
+        <div class="container text-center py-5">
+            <p class="mainTitle titles">Niveles de dificultad</p>
+            <p class="txt regular-t">Selecciona para visualizar los ejercicios por nivel de dificultad</p>
+            <p class="p"></p>
+            <div class="row py-3">
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/0']">
+                        <div class="stars-space">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                        <hr>
+                        <ng-container >
+                            <p class="regular-t" *ngIf="levels[0].quantity>1; else nothis" >Existen {{levels[0].quantity}} ejercicios</p>
+                        </ng-container>
+                        <ng-template #nothis> 
+                            <p class="regular-t" >Existe {{levels[0].quantity}} ejercicio</p>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/1']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                        <hr>
+                        <ng-container >
+                            <p class="regular-t" *ngIf="levels[1].quantity>1; else nothis1" >Existen {{levels[1].quantity}} ejercicios</p>
+                        </ng-container>
+                        <ng-template #nothis1> 
+                            <p class="regular-t" >Existe {{levels[1].quantity}} ejercicio</p>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/2']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                        <hr>
+                        <ng-container >
+                            <p class="regular-t" *ngIf="levels[2].quantity>1; else nothis2" >Existen {{levels[2].quantity}} ejercicios</p>
+                        </ng-container>
+                        <ng-template #nothis2> 
+                            <p class="regular-t" >Existe {{levels[2].quantity}} ejercicio</p>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/3']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                        <hr>
+                        <ng-container >
+                            <p class="regular-t" *ngIf="levels[3].quantity>1; else nothis3" >Existen {{levels[3].quantity}} ejercicios</p>
+                        </ng-container>
+                        <ng-template #nothis3> 
+                            <p class="regular-t" >Existe {{levels[3].quantity}} ejercicio</p>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/4']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div> 
+                        <hr>
+                        <ng-container >
+                            <p class="regular-t" *ngIf="levels[4].quantity>1; else nothis4" >Existen {{levels[4].quantity}} ejercicios</p>
+                        </ng-container>
+                        <ng-template #nothis4 >
+                            <p class="regular-t" >Existe {{levels[4].quantity}} ejercicio </p>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card p-3" [routerLink]="['/exercises/5']">
+                        <div class="stars-space">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div> 
+                        <hr>
+                        <ng-container >
+                            <p class="regular-t" *ngIf="levels[5].quantity>1; else nothis5" >Existen  {{levels[5].quantity}} ejercicios</p>
+                        </ng-container>
+                        <ng-template #nothis5> 
+                            <p class="regular-t" >Existe {{levels[5].quantity}} ejercicio</p>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

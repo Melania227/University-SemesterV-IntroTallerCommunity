@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center loading p-5 m-5" *ngIf="flagLoading">
+  <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div class="loaded" *ngIf="!flagLoading">
+  <div class="container-fluid gigantContainer p-5">
+      <div class="row">
+          <p class="mainTitle titles">Listado de ejercicios</p>
+          <div class="col-lg-6" *ngFor="let exercise of exercises | filter: filterTerm">
+              <div class="card text-left my-4">
+                <div class="card-body">
+                  <div class="row nombreRow">
+                      <a class="titleRedirection" [routerLink]="['/exercises-admin/details', exercise.code]"><h2 class="card-title titles">{{exercise.name}}</h2></a>
+                  </div>
+                  <div class="row my-2 mx-1">
+                    <div class="col-lg-9">
+                      <p class="subtitle1 d-inline titles">Categoría: </p>
+                      <p class="d-inline regular-text1 regular-t">{{exercise.section}}</p>
+                    </div>
+                    <div class="col-lg-3 stars py-1">
+                      <ng-container *ngFor="let star of getStars(exercise)">
+                          <i class="fas fa-star" *ngIf="star"></i>
+                          <i class="far fa-star" *ngIf="!star"></i>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="row mx-1">
+                    <p class="subtitle1 titles d-inline">Descripción: </p>
+                    <p class="regular-text1 d-inline regular-t">{{exercise.details}}</p>
+                    <hr>
+                  </div>
+                  <div class="row finalRow mb-2 mx-1">
+                    <div class="col-lg-4">
+                      <p class="subtitle2 titles">Creador: </p>
+                      <p class="regular-text2 regular-t">{{exercise.creator}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <p class="subtitle2  titles">Fecha de creación: </p>
+                      <p class="regular-text2 regular-t">{{exercise.created}}</p>
+                    </div>
+                    <div class="col-lg-4 p-2 icons d-right">
+                      <button class="btn" [routerLink]="['/exercises-admin/edit', exercise.code]"><i class="fas fa-edit"></i></button>
+                      <button class="btn" (click)="deleteExercise(exercise.code)"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

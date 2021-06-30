@@ -1,0 +1,157 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">  
+
+<div class="d-flex justify-content-center loading p-5 m-5" *ngIf="flagLoading">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div class="loaded container-fluid" *ngIf="!flagLoading">
+    <div class="row description">
+        <div class="col-2"></div>
+        <div class="col-8 pt-5 mt-5 px-5">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="row nombreRow">
+                        <h2 class="card-title titles">{{exercise.name}}</h2>
+                    </div>
+                    <p class="regular-text1 regular-t">{{exercise.details}}</p>
+                    <hr class="mt-3 mb-5">
+                    <p class="subtitle2 titles">Categoría: </p>
+                    <p class="regular-text2 regular-t">{{exercise.section}}</p>
+                    <p class="subtitle2 titles">Creador: </p>
+                    <p class="regular-text2 regular-t">{{exercise.creator}}</p>
+                    <div class="row">
+                        <div class="col-5">
+                            <p class="subtitle2 titles">Fecha de creación: </p>
+                            <p class="regular-text2  regular-t">{{exercise.created}}</p>
+                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-3 stars">
+                            <br>
+                            <span *ngFor="let star of getStars(exercise); let i = index" (click)="rate(i + 1)">
+                                <ng-container ><i class="fas fa-star" *ngIf="star; else noStar"></i></ng-container>
+                                <ng-template #noStar>  <i class="far fa-star"></i></ng-template>
+                            </span>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    
+    <div class="row solution">
+        <div class="col-2"></div>
+        <div class="col-8 col-solution py-5">
+            <div class="card text-center pt-5 px-5">
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <p class="subtitle2 titles">Llamada</p>
+                            <p class="p"></p>
+                            <p class="regular-text2 regular-t">{{exercise.call}}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="subtitle2 titles">Inputs</p>
+                            <p class="p"></p>
+                            <p class="regular-text2 regular-t" *ngFor="let input of exercise.solution.inputs">{{input.name}}: {{input.type}}</p>
+                            <p class="regular-text2 regular-t" *ngIf="exercise.solution.inputs == null"> - </p>
+                        </div>
+                        <div class="col-4">
+                            <p class="titles subtitle2">Outputs</p>
+                            <p class="p"></p>
+                            <p class="regular-text2 regular-t" *ngFor="let output of exercise.solution.outputs">{{output.name}}: {{output.type}}</p>
+                            <p class="regular-text2 regular-t" *ngIf="exercise.solution.outputs == null"> - </p>
+                        </div>
+                    </div>
+                    <button class="btn" (click)="showCode()" *ngIf="!CodeAllow" >Mostrar solución</button>
+                    <button class="btn" (click)="showCode()"  *ngIf="CodeAllow" >Ocultar solución</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="row showCode p-5" *ngIf="CodeAllow" id="codeShow">
+        <div class="card form-group p-3">
+                <h4 class=" titles">Solución</h4>
+                <div class="form-control">
+                    <ngs-code-editor #codeEditor theme="vs" value [readOnly]="true" [codeModel]="codeModel" >
+                    </ngs-code-editor>
+                </div>
+        </div>
+    </div>
+    
+    <div class="row examples mr-0 pr-0">
+      
+
+        <div *ngIf="examples.length!=0">
+            <div class="container-fluid calific py-5">
+                <div class="row examples mx-0 px-0">
+                    <div id="carouselExampleControls" class="carousel slide my-5 mr-0 pr-0" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div *ngFor="let group of getGroups(examples,3), index as i" [ngClass]="i==0?'carousel-item active':'carousel-item'">
+                               
+                                <div class="row justify-content-center">
+                                    <div *ngFor="let ex of group" class="col-4 mb-3">
+                                        <div class="card example-card text-left">
+                                          <div class="card-body">
+                                            <h4 class="card-title titles">Ejemplo</h4>
+                                            <p class="c"></p>
+                                            <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">{{ex.call}}</p> <br>
+                                            <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">{{ex.comment}}</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
+                                            <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">{{ex.result}}</p> <br>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pb-3 justify-content-center">
+                                    <button class="carousel-control-prev  h-25 position-relative" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" style="color: black;" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next  h-25 position-relative" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" style="color: black;" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+  
+
+<!-- 
+    <div class="row examples">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card examplesCard p-5 text-left">
+                <img class="card-img-top" src="" alt="">
+                <div class="card-body">
+                <h4 class="card-title mb-3 titles">Ejemplos</h4>
+                <div class="row eachExample mb-3" *ngFor="let example of examples">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">{{example.call}}</p> <br>
+                        <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline" *ngIf="example.comment != ''">{{example.comment}}</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br>
+                        <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">{{example.result}}</p> <br>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+-->

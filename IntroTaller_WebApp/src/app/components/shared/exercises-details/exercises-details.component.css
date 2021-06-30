@@ -1,0 +1,144 @@
+.t-name{
+    text-transform: uppercase;
+}
+
+.description{
+    background-color: #EBEBEC;
+}
+
+.description .card{
+    margin-bottom: -55px;
+    padding:30px;
+}
+
+.solution, .showCode{
+    background-color: #979eb8 !important;
+    background-image: url("https://www.transparenttextures.com/patterns/cubes.png")  !important;
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+h4{
+    text-align: center;
+    font-weight: 500;
+    color: #1D1E4E !important;
+    font-size: 30px;
+}
+
+.fa-star{
+    cursor: pointer;
+}
+
+.fa-star:hover{
+    color: #6d6ea8 !important;
+}
+
+.examples{
+    background-color: #EBEBEC;
+}
+
+.col-solution{
+    margin-top: 30px;
+}
+
+.solution{
+    padding-top: 40px;
+}
+
+.card-title{
+    font-size: 85px;
+    text-align: right;
+    padding-top: 20px;
+    font-weight: 500;
+    color: #1C1D4B;
+}
+
+.subtitle1{
+    font-weight: 500;
+    font-size: 30px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.subtitle2{
+    font-weight: 500;
+    font-size: 23px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.regular-text1{
+    font-size: 17px;
+}
+
+.regular-text2{
+    font-size: 15px;
+}
+
+.stars{
+    font-size: 23px;
+    text-align: right;
+    color: #1C1D4B;
+}
+
+.btn{
+    margin-bottom: -50px;
+    background-color: #1C1D4B;
+    border-color: #1C1D4B;;
+    color: white;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.nombreRow{
+    margin-top: -118px;
+}
+
+p{
+    white-space: pre-wrap;
+}
+
+.example-card{
+    background-color: #1C1D4B;
+    color: white !important;
+    padding: 10px;
+    width: 100%;
+}
+
+.example-card .card-title{
+    color: white !important;
+    font-size: 40px;
+    padding: 5px;
+}
+
+/* .loaded{
+    width: auto;
+} */
+
+.noExamples{
+    font-size: 40px;
+    text-align: center;
+    padding: 50px;
+    color: #1C1D4B;
+    word-wrap: break-word;
+}
+
+.p{
+    border-top: 3px solid #1d1e4e9d;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+
+ .c{
+    border-top: 3px solid #c3c3d1 !important;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+#codeShow{
+
+    transition: 0.3s ease-in-out;
+}

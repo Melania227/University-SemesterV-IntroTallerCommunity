@@ -1,0 +1,50 @@
+nav{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.navbar-brand{
+    font-size: 40px;
+    font-weight: bold;
+    padding-left: 20px;
+    color: #1C1D4B;
+}
+
+.navbar-brand:hover{
+    color: #1C1D4B;
+}
+
+.navbar-toggler{
+    font-size: 35px;
+}
+
+.search-btn{
+    background-color: #1C1D4B;
+    color: white;
+}
+
+button{
+    border-style: none;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.form-inline{
+    flex-direction: row;
+}
+
+.iconLogout{
+    font-size: 30px;
+    color: #1C1D4B;
+}
+
+.iconNav{
+    color: #1C1D4B;  
+}
+
+.login-btn{
+    font-size: 20px;
+}

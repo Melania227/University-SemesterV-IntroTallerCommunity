@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center loading p-5 m-5" *ngIf="flagLoading">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div class="loaded" *ngIf="!flagLoading ">
+    <div class="container-fluid calific py-5">
+        <div class="container text-center py-1">
+            <p class="mainTitle titles">Categorías</p>
+            <p class="txt regular-t">Selecciona para visualizar los ejercicios por nivel de dificultad</p>
+            <p class="p"></p>
+            <div class="row examples mx-0 px-0">
+                <div id="carouselExampleControls" class="carousel slide my-3 mr-0 pr-0" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div *ngFor="let group of getGroups(categories,3), index as i" [ngClass]="i==0?'carousel-item active':'carousel-item'">
+                            <div class="row pb-3 justify-content-center">
+                                <button class="carousel-control-prev h-25 position-relative" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next h-25 position-relative" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div *ngFor="let category of group" class="col-4 mb-3">
+                                    <div class="card text-center"[routerLink]="['/exercises/category.section']" (click)=listar(category.section)>
+                                        <div class="card-body">
+                                            <h4 class="regular-t card-title">{{category.section}}</h4>
+                                            <hr>
+                                            <ng-container >
+                                                <p class="regular-t" *ngIf="category.quantity>1; else nothis" >Existen {{category.quantity}} ejercicios</p>
+                                            </ng-container>
+                                            <ng-template #nothis> 
+                                                <p class="regular-t" >Existe {{category.quantity}} ejercicio</p>
+                                            </ng-template>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>

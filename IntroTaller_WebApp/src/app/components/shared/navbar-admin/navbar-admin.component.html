@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">  
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">       
+    <a class="navbar-brand"  [routerLink]="['/home']" ><i class="fas fa-laptop"></i> IC</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="iconNav fas fa-list-alt"></i>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav  mr-auto">
+            <li class="nav-item">
+                <a class="nav-link px-5 py-3" [routerLink]="['/exercises-admin/add']">Crear Ejercicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-5 py-3" [routerLink]="['/signup']">Crear Administrador</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-5 py-3" [routerLink]="['/exercises-admin']">Listado de ejercicios</a>
+            </li>
+            <form class="d-flex px-5 mx-5" *ngIf="permiso">
+                <input class="form-control d-none d-lg-inline" type="search" placeholder="Buscar.." aria-label="Search" [(ngModel)]="filterTerm" (keyup.enter)="search()" name="gato">
+            </form>
+        </ul>
+    </div>
+    
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="nav navbar-nav ml-auto w-100 justify-content-end ">
+            <button class="btn px-4" type="button" (click)="logout()">
+                <i class="far fa-times-circle iconLogout"></i>
+            </button>
+        </ul>
+    </div>
+</nav>
