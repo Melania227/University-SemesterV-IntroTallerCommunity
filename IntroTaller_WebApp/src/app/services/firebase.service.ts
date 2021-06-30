@@ -131,14 +131,17 @@ export class FirebaseService {
 
   async adminByEmail(email: string): Promise<User> {
     let admin: User;
-    await this.rootRef.once('value', (snapshot) => {
+    await this.adminRef.once('value', (snapshot) => {
       snapshot.forEach(function (childSnapshot) {
         let data = childSnapshot.val();
+        console.log(data);
         if (data.email == email) {
+          console.log(data.email);
           admin = data;
           }
       });
     });
+    console.log(admin);
     return admin;
   }
 
@@ -226,4 +229,22 @@ export class FirebaseService {
     console.log(list);
     return list;
   }
+
+  //Filtrar ejercicios y dar categorias existentes
+  async getAllCategories(): Promise<string[]> {
+    let list: Ejercicio[] = [];
+    await this.rootRef.once('value', (snapshot) => {
+      snapshot.forEach(function (childSnapshot) {
+        let data = childSnapshot.val();
+        list.push(data);
+      });
+    });
+
+    let categories: string[] = [];
+    list.filter((elem)=>{
+      categories.includes(elem.section)?categories:categories.push(elem.section);
+    })
+    return categories;
+  }
+
 }

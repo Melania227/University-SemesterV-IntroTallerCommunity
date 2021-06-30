@@ -6,6 +6,8 @@ import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import firebase from 'firebase';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-exercise',
@@ -23,7 +25,13 @@ export class CreateExerciseComponent implements OnInit {
   progress: number;
   @ViewChild('codeEditor') codeEditor_: ElementRef<HTMLInputElement>;
 
-  constructor(private fb: FormBuilder, private us: FileUploadService, private firebase: FirebaseService) {
+  constructor(
+    private fb: FormBuilder, 
+    private us: FileUploadService, 
+    private firebase: FirebaseService,
+    private router: Router
+  ) 
+  {
     this.createForm();
     this.textContent = 'No se ha cargado ningún archivo';
     this.btn_bool = this.editable = false;
@@ -252,20 +260,41 @@ export class CreateExerciseComponent implements OnInit {
         }
       });
     } else {
-      let result: Ejercicio = this.form.value;
-      result.level = 0
-      result.created = "2020-12-15";
-      result.creator = "Velvet Chimichanga";
-      if (this.fileToUpload == null) {
-        result.solution.code = this.code;
-        this.firebase.addExcercise(result);
-      }
-      else {
-        result.solution.code = this.fileToUpload.name+"_";
-        this.firebase.addExcercise(result).then(code => {
-          this.us.uploadFile(this.fileToUpload, result.created+'-'+code);
-        });
-      }
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'warning',
+        title: '¿Desea guardar este ejercicio?',
+        showDenyButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        confirmButtonText: `Guardar`,
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let result: Ejercicio = this.form.value;
+          result.level = 0
+          result.created = "2020-12-15";
+          result.creator = "Velvet Chimichanga";
+          if (this.fileToUpload == null) {
+            result.solution.code = this.code;
+            this.firebase.addExcercise(result);
+          }
+          else {
+            result.solution.code = this.fileToUpload.name+"_";
+            this.firebase.addExcercise(result).then(code => {
+              this.us.uploadFile(this.fileToUpload, result.created+'-'+code);
+            });
+          }
+          
+          Swal.fire('Ejercicio añadido con éxito', '', 'success').then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/home']);
+            }
+          })
+        }
+      })
+      
     }
 
   }

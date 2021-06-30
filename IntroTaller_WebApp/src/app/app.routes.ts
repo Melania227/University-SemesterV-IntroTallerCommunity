@@ -27,7 +27,7 @@ const APP_ROUTES : Routes = [
         ]
     },
     {path: 'details/:id', component: ExercisesDetailsComponent},
-    {path: '**', pathMatch: 'full', redirectTo: 'exercises-admin'} /* PREDETERMINADA */
+    {path: '**', pathMatch: 'full', redirectTo: 'home'} /* PREDETERMINADA */
 ];
 
 export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES, {useHash:true});
