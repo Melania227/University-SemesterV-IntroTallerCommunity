@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CodeEditorModule } from '@ngstack/code-editor';
 
 import { APP_ROUTING } from './app.routes';
+import { CategoryCarouselComponent } from './components/shared/category-carousel/category-carousel.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { APP_ROUTING } from './app.routes';
     ExercisesListCRUDComponent,
     CreateExerciseComponent,
     EditExerciseComponent,
-    ExercisesAdminsComponent
+    ExercisesAdminsComponent,
+    CategoryCarouselComponent
   ],
   imports: [
     BrowserModule,
