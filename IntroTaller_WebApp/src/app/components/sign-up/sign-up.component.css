@@ -5,7 +5,9 @@
 }
 
 .anotherSide{
-    background-color: #1C1D4B;
+    background-color: #0e083b;
+background-image: url("https://www.transparenttextures.com/patterns/diagmonds-light.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
 .fa-user-circle{
