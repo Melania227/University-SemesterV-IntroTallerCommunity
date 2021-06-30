@@ -15,7 +15,7 @@ const APP_ROUTES : Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'signup', component: SignUpComponent},
     {path: 'create-category', component: CreateCategoryComponent},
-    {path: 'exercises', component: ExercisesListComponent},
+    {path: 'exercises/:type', component: ExercisesListComponent},
     {path: 'exercises-admin', 
         component: ExercisesAdminsComponent,
         children:[
