@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MessageService } from 'src/app/services/messages.service';
+import { NavegadorService } from 'src/app/services/navegador.service';
 
 @Component({
   selector: 'app-navbar-admin',
@@ -13,9 +14,15 @@ import { MessageService } from 'src/app/services/messages.service';
 export class NavbarAdminComponent implements OnInit {
 
   @Input() filterTerm: string;
-
-  constructor(public firebase: FirebaseService, private router: Router, private searchService: MessageService) {
+  permiso: boolean = true;
   
+  constructor(public firebase: FirebaseService, private router: Router, private searchService: MessageService,  private navService: NavegadorService) {
+    this.navService.statusUpdated.subscribe(
+      (status:string) =>
+      { 
+        if (this.navService.router == "false") this.permiso = false;
+        else  this.permiso = true;
+      } );
   }
 
   ngOnInit(): void {
