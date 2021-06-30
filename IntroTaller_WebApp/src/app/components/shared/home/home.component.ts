@@ -10,13 +10,15 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 export class HomeComponent implements OnInit {
   home: boolean = true;
   levels: LevelInfo[];
+  flagLoading = true;
+
   constructor(public firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
     this.firebaseService.getAllLevels().then((data)=>{
       this.levels = data;
       console.log(this.levels);
-      
+      this.flagLoading = false;
     });
   }
 
