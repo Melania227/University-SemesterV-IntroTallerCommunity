@@ -34,3 +34,14 @@ export interface Rating{
     puntos: number;
     votos: number;
 }
+
+export interface CategoriasInfo{
+    section: string;
+    quantity: number;
+}
+
+
+export interface LevelInfo{
+    level: number;
+    quantity: number;
+}

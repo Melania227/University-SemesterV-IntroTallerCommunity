@@ -6,19 +6,27 @@
 
 <div class="loaded" *ngIf="!flagLoading ">
     <div class="container-fluid calific py-5">
-        <div class="container text-center py-5">
+        <div class="container text-center py-1">
             <p class="mainTitle titles">Categorías</p>
             <p class="txt regular-t">Selecciona para visualizar los ejercicios por nivel de dificultad</p>
             <p class="p"></p>
             <div class="row examples mx-0 px-0">
-                <div id="carouselExampleControls" class="carousel slide my-5 mr-0 pr-0" data-ride="carousel">
+                <div id="carouselExampleControls" class="carousel slide my-3 mr-0 pr-0" data-ride="carousel">
                     <div class="carousel-inner">
                         <div *ngFor="let group of getGroups(categories,3), index as i" [ngClass]="i==0?'carousel-item active':'carousel-item'">
                             <div class="row">
-                                <div *ngFor="let category of group" class="col-md-4 mb-3">
-                                    <div class="card text-center">
+                                <div *ngFor="let category of group" class="col mb-3">
+                                    <div class="card text-center"[routerLink]="['/exercises/category.section']" (click)=listar(category.section)>
                                         <div class="card-body">
-                                            <h4 class="regular-t card-title">{{category}}</h4>
+                                            <h4 class="regular-t card-title">{{category.section}}</h4>
+                                            <hr>
+                                            <ng-container >
+                                                <p class="regular-t" *ngIf="category.quantity>1; else nothis" >Existen {{category.quantity}} ejercicios</p>
+                                            </ng-container>
+                                            <ng-template #nothis> 
+                                                <p class="regular-t" >Existe {{category.quantity}} ejercicio</p>
+                                            </ng-template>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -26,15 +34,16 @@
                             </div>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                    
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
     </div>
