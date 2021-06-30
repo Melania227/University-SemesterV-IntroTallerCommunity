@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { adminUser } from 'src/app/models/adminUser';
+import { User } from 'src/app/models/loginUser';
 import { AuthService } from 'src/app/services/auth.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 
 @Component({
@@ -16,7 +18,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _authService: AuthService 
+    private _authService: AuthService , private firebase: FirebaseService
   ) { 
     this.createForm();
   }
@@ -60,6 +62,10 @@ export class SignUpComponent implements OnInit {
       }, (err) => {
         console.log(err.error.error.message);
       });
+      let user: User;
+      user.name = this.forma.get('name').value;
+      user.email = this.forma.get('email').value;
+      this.firebase.addAdmin(user);
     }
   }
 

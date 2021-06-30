@@ -21,7 +21,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ExercisesListCRUDComponent } from './components/exercises-list-crud/exercises-list-crud.component';
 import { CreateExerciseComponent } from './components/exercises-list-CRUD/create-exercise/create-exercise.component';
 import { EditExerciseComponent } from './components/exercises-list-CRUD/edit-exercise/edit-exercise.component';
-import { CreateCategoryComponent } from './components/create-category/create-category.component';
 import { ExercisesAdminsComponent } from './components/exercises-admins/exercises-admins.component';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -45,7 +44,6 @@ import { APP_ROUTING } from './app.routes';
     ExercisesListCRUDComponent,
     CreateExerciseComponent,
     EditExerciseComponent,
-    CreateCategoryComponent,
     ExercisesAdminsComponent
   ],
   imports: [
