@@ -87,10 +87,23 @@ p{
     background-color: #1C1D4B;
     color: white !important;
     padding: 10px;
+    width: 100%;
 }
 
 .example-card .card-title{
     color: white !important;
     font-size: 40px;
-    padding: 0;
+    padding: 5px;
+}
+
+/* .loaded{
+    width: auto;
+} */
+
+.noExamples{
+    font-size: 50px;
+    text-align: center;
+    padding: 50px;
+    color: #1C1D4B;
+    word-wrap: break-word;
 }

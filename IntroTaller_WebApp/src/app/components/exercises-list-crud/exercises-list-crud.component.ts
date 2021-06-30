@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-exercises-list-crud',
@@ -34,6 +35,26 @@ export class ExercisesListCRUDComponent implements OnInit {
     console.log(code);
     /* this.firebase.deleteExcercise(code).then((res) => console.log(res));
     setTimeout(function(){ window.location.reload(); }, 2000); */
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'warning',
+      title: '¿Desea eliminar este ejercicio?',
+      showDenyButton: true,
+      showConfirmButton: true,
+      confirmButtonColor: '#3085d6',
+      denyButtonColor: '#d33',
+      confirmButtonText: `Eliminar`,
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //this.firebase.deleteExcercise(code).then((res) => console.log(res));
+        Swal.fire('Ejercicio eliminado con éxito', '', 'success').then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        })
+      }
+    })
   }
 
 }
