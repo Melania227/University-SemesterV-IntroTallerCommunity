@@ -1,21 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import Swal from 'sweetalert2';
-
+import { MessageService } from 'src/app/services/messages.service';
 @Component({
   selector: 'app-exercises-list-crud',
   templateUrl: './exercises-list-crud.component.html',
   styleUrls: ['./exercises-list-crud.component.css']
 })
 export class ExercisesListCRUDComponent implements OnInit {
+
+  filterTerm: string = "";
   calification = [false, false, false, false, false];
   exercises:Ejercicio[];
   flagLoading: boolean = true;
-
+  subscription: Subscription;
+  
   constructor(
-    public firebase: FirebaseService
-  ) { }
+    public firebase: FirebaseService, private searchService: MessageService
+    ) {
+      this.searchService.statusUpdated.subscribe(
+        (status:string) =>
+        { 
+          this.filterTerm = this.searchService.filterTerm; 
+          if (this.filterTerm == "") console.log("vacio");
+        } );
+   }
 
   ngOnInit(): void {
     (this.firebase.getAllExercises().then((data) => {

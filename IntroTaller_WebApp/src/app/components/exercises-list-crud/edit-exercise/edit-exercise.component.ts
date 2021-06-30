@@ -30,7 +30,8 @@ export class EditExerciseComponent implements OnInit {
     private fb: FormBuilder,
     private us: FileUploadService,
     private firebase: FirebaseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.createForm();
     this.sub = this.route.params.subscribe((params) => {

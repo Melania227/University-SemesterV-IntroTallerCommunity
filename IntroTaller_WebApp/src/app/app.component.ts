@@ -17,7 +17,6 @@ export class AppComponent {
   }
 
   ngOnInit():void{
-    
   }
 
   isStudent(){
