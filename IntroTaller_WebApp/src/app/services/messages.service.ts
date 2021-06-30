@@ -1,20 +1,20 @@
 
-import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-@Injectable()
+import { Injectable, EventEmitter } from '@angular/core';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class MessageService {
-  private siblingMsg = new Subject<string>();
-  constructor() { }
-  /*
-   * @return {Observable<string>} : siblingMsg
-   */
-  public getMessage(): Observable<string> {
-    return this.siblingMsg.asObservable();
+
+  public filterTerm =  "gato";
+  statusUpdated = new EventEmitter<string>();
+
+  
+  changeData(data: string) {
+    this.filterTerm = data;
   }
-  /*
-   * @param {string} message : siblingMsg
-   */
-  public updateMessage(message: string): void {
-    this.siblingMsg.next(message);
-  }
+
 }
+
+
