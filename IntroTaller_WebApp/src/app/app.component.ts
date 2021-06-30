@@ -10,15 +10,17 @@ import {FirebaseService} from 'src/app/services/firebase.service'
 
 export class AppComponent {
   title = 'WebApp';
-  excerciseCode = "1";
 
   constructor(public firebase: FirebaseService){
+    
   }
 
   ngOnInit():void{
     
-    //(this.firebase.excercisesByID((this.excerciseCode))).then((data) => console.log(data));
+  }
 
+  isStudent(){
+    return localStorage.getItem('token')==undefined;
   }
 
 

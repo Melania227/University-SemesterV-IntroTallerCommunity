@@ -1,4 +1,6 @@
-<app-navbar-student></app-navbar-student>
+<app-navbar-student *ngIf="isStudent()"></app-navbar-student>
+<app-navbar-admin *ngIf="!isStudent()"></app-navbar-admin>
+
 <router-outlet></router-outlet>
 
 <app-footer></app-footer>
