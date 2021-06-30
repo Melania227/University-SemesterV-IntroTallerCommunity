@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { adminUser } from 'src/app/models/adminUser';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class SignUpComponent implements OnInit {
     this.forma = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         name: ['', [Validators.required]]
       }
     )
@@ -53,12 +54,28 @@ export class SignUpComponent implements OnInit {
       })
     }
     else{
-      console.log(this.forma);
-      this._authService.nuevoUsuario({email: this.forma.get('email').value, password: this.forma.get('password').value, name: this.forma.get('name').value })
-      .subscribe( resp => {
-        console.log(resp);
-      }, (err) => {
-        console.log(err.error.error.message);
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'warning',
+        title: '¿Desea crear este nuevo usuario?',
+        showDenyButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        confirmButtonText: `Crear`,
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log("lo logré");
+          this._authService.nuevoUsuario({email: this.forma.get('email').value, password: this.forma.get('password').value, name: this.forma.get('name').value })
+          .subscribe( resp => {
+            console.log(resp);
+            Swal.fire('Usuario añadido con éxito', '', 'success')
+          }, (err) => {
+            console.log(err.error.error.message);
+            Swal.fire('Error en la creación del usuario', 'Este usuario puede ya existir, o por el contrario sus credenciales pueden ser erróneas. Por favor intente con otras credenciales.', 'error')
+          });
+        }
       });
     }
   }
