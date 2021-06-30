@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MessageService } from 'src/app/services/messages.service';
+import { NavegadorService } from 'src/app/services/navegador.service';
 
 @Component({
   selector: 'app-exercises-list',
@@ -26,7 +27,8 @@ export class ExercisesListComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    public firebase: FirebaseService, private route: ActivatedRoute, private searchService: MessageService
+    public firebase: FirebaseService, private route: ActivatedRoute, private searchService: MessageService,
+    private navService: NavegadorService
   ) {
     this.searchService.statusUpdated.subscribe(
       (status:string) =>
@@ -34,6 +36,9 @@ export class ExercisesListComponent implements OnInit {
         this.filterTerm = this.searchService.filterTerm; 
         if (this.filterTerm == "") console.log("vacio");
       } );
+      this.navService.changeData("true");
+    //this.loggingService.logStatusChange(status);
+    this.navService.statusUpdated.emit("GATITOS GORDOS");
     
    }
 

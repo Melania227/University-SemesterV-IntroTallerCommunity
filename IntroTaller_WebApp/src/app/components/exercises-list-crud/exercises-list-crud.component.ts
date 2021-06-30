@@ -4,6 +4,7 @@ import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import Swal from 'sweetalert2';
 import { MessageService } from 'src/app/services/messages.service';
+import { NavegadorService } from 'src/app/services/navegador.service';
 @Component({
   selector: 'app-exercises-list-crud',
   templateUrl: './exercises-list-crud.component.html',
@@ -18,8 +19,11 @@ export class ExercisesListCRUDComponent implements OnInit {
   subscription: Subscription;
   
   constructor(
-    public firebase: FirebaseService, private searchService: MessageService
+    public firebase: FirebaseService, private searchService: MessageService, private navService: NavegadorService
     ) {
+      this.navService.changeData("true");
+      //this.loggingService.logStatusChange(status);
+      this.navService.statusUpdated.emit("GATITOS GORDOS");
       this.searchService.statusUpdated.subscribe(
         (status:string) =>
         { 

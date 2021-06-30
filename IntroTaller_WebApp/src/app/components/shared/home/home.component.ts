@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LevelInfo } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { NavegadorService } from 'src/app/services/navegador.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,12 @@ export class HomeComponent implements OnInit {
   levels: LevelInfo[];
   flagLoading = true;
 
-  constructor(public firebaseService: FirebaseService) { }
+  constructor(public firebaseService: FirebaseService,
+    private navService: NavegadorService) { 
+    this.navService.changeData("true");
+    //this.loggingService.logStatusChange(status);
+    this.navService.statusUpdated.emit("GATITOS GORDOS");
+  }
 
   ngOnInit(): void {
     this.firebaseService.getAllLevels().then((data)=>{

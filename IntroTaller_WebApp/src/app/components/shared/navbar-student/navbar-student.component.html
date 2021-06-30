@@ -8,11 +8,11 @@
 
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav  mr-auto">
-            <li class="nav-item">
+            <li class="nav-item" [routerLink]="['/exercises/all']" >
                 <a class="nav-link px-5 py-3">Listado de ejercicios</a>
             </li>
-            <form class="d-flex px-4 mx-4">
-                <input class="form-control d-none d-lg-inline" type="search" placeholder="Buscar.." aria-label="Search">
+            <form class="d-flex px-4 mx-4" *ngIf="permiso">
+                <input class="form-control d-none d-lg-inline" type="search" placeholder="Buscar.." aria-label="Search" [(ngModel)]="filterTerm" (keyup.enter)="search()" name="gato">
             </form>
         </ul>
     </div>

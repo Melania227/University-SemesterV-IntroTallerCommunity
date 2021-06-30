@@ -5,6 +5,7 @@ import { CodeModel } from '@ngstack/code-editor';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { NavegadorService } from 'src/app/services/navegador.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -31,7 +32,7 @@ export class EditExerciseComponent implements OnInit {
     private us: FileUploadService,
     private firebase: FirebaseService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router, private navService: NavegadorService
   ) {
     this.createForm();
     this.sub = this.route.params.subscribe((params) => {
@@ -52,6 +53,9 @@ export class EditExerciseComponent implements OnInit {
         '@ngstack/code-editor',
       ],
     };
+    this.navService.changeData("false");
+    //this.loggingService.logStatusChange(status);
+    this.navService.statusUpdated.emit("GATITOS GORDOS");
   }
 
   ngOnInit(): void {

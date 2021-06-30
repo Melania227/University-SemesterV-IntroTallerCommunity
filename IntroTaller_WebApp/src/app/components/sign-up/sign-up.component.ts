@@ -5,6 +5,7 @@ import { User } from 'src/app/models/loginUser';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { NavegadorService } from 'src/app/services/navegador.service';
 
 
 @Component({
@@ -19,12 +20,16 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _authService: AuthService , private firebase: FirebaseService
+    private _authService: AuthService , private firebase: FirebaseService,
+    private navService: NavegadorService
   ) { 
     this.createForm();
   }
 
   ngOnInit(): void {
+    this.navService.changeData("false");
+    //this.loggingService.logStatusChange(status);
+    this.navService.statusUpdated.emit("GATITOS GORDOS");
   }
 
   get nameInvalid(){
