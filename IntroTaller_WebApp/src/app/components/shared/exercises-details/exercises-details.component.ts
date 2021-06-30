@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CodeModel } from '@ngstack/code-editor';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
+
 
 @Component({
   selector: 'app-exercises-details',
@@ -30,8 +32,10 @@ export class ExercisesDetailsComponent implements OnInit {
    private id: string;
    private sub: any;
    flagLoading: boolean = true;
+   code: string;
+   CodeAllow:boolean;
 
-  constructor(
+  constructor( 
      public firebase: FirebaseService,
      private route: ActivatedRoute
   ) 
@@ -55,7 +59,8 @@ export class ExercisesDetailsComponent implements OnInit {
   }
 
    ngOnInit(): void {
-      
+      this.CodeAllow = false;
+      this.code = '#No se puede visualizar el código, lo sentimos :P\n\n\n\n';
    }
 
    getStars(exercise: Ejercicio){
@@ -80,5 +85,15 @@ export class ExercisesDetailsComponent implements OnInit {
  sizeExamples(){
     this.examples.length;
  }
+ 
+ showCode(){
+    if(this.CodeAllow){
+      this.CodeAllow = false;
+    }
+    else{
+      this.CodeAllow = true;
+    }
+ }
+
 
 }
