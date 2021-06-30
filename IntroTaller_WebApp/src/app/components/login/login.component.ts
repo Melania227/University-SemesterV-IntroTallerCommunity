@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { loginUser } from 'src/app/models/loginUser';
 import { AuthService } from 'src/app/services/auth.service';
+import { NavegadorService } from 'src/app/services/navegador.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,18 +13,23 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
+  @Input() filterTerm: string;
   forma: FormGroup;
   userToLogin: loginUser
 
   constructor(
     private fb: FormBuilder,
     private _authService: AuthService ,
-    private router: Router
+    private router: Router,
+    private navService: NavegadorService
   ) { 
     this.createForm();
   }
 
   ngOnInit(): void {
+    this.navService.changeData("false");
+    //this.loggingService.logStatusChange(status);
+    this.navService.statusUpdated.emit("GATITOS GORDOS");
   }
 
   get mailInvalid(){

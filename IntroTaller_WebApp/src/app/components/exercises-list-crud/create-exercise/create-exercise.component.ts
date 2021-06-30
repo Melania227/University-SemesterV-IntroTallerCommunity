@@ -8,6 +8,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import firebase from 'firebase';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { NavegadorService } from 'src/app/services/navegador.service';
 
 @Component({
   selector: 'app-create-exercise',
@@ -29,7 +30,7 @@ export class CreateExerciseComponent implements OnInit {
     private fb: FormBuilder, 
     private us: FileUploadService, 
     private firebase: FirebaseService,
-    private router: Router
+    private router: Router, private navService: NavegadorService
   ) 
   {
     this.createForm();
@@ -46,8 +47,10 @@ export class CreateExerciseComponent implements OnInit {
         '@ngstack/code-editor',
       ],
     };
+    this.navService.changeData("false");
+    //this.loggingService.logStatusChange(status);
+    this.navService.statusUpdated.emit("GATITOS GORDOS");
   }
-
   ngOnInit(): void { }
 
   createForm() {
