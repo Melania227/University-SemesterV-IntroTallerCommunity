@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import firebase from 'firebase';
-import { Ejercicio } from 'src/app/models/ejercicio.model';
+import { Ejercicio, Rating } from 'src/app/models/ejercicio.model';
 import { User } from '../models/loginUser';
 
 @Injectable({
@@ -10,11 +10,13 @@ import { User } from '../models/loginUser';
 export class FirebaseService {
   rootRef: firebase.database.Reference;
   adminRef: firebase.database.Reference;
+  starsRef: firebase.database.Reference;
 
   constructor(private angularFirebaseDatabase: AngularFireDatabase) {
     const database = this.angularFirebaseDatabase.database;
     this.rootRef = database.ref('/Ejercicios/');
     this.adminRef = database.ref('/Administradores/');
+    this.starsRef = database.ref('/Rating/');
   }
 
   //Obtener todos los ejercicios :)
@@ -37,6 +39,7 @@ export class FirebaseService {
       .remove()
       .then(() => {
         mensaje = 'Ejercicio #' + codigo + ' eliminado.';
+        this.starsRef.child(codigo).remove();
       })
       .catch((error) => {
         mensaje = 'No se pudo eliminar el ejercicio #' + codigo + '.';
@@ -58,11 +61,34 @@ export class FirebaseService {
     console.log(recordKey);
     ejercicio.code = recordKey;
     await this.rootRef.child(recordKey).set(ejercicio).then(() => {
-      return recordKey;
+      this.starsRef.child(recordKey).set({"id":recordKey,"puntos":0,"votos":0}).then(() => {
+      return recordKey;})
     })
     return recordKey;
   }
 
+  async vote(code:string, val:number){
+    let votesInfo: Rating;
+    let error = false;
+    await this.starsRef.child(code).once('value', (snapshot) => {
+      votesInfo = snapshot.val();
+      this.starsRef
+      .child(code)
+      .update({"id": votesInfo.id, "puntos": (votesInfo.puntos+val), "votos":(votesInfo.votos+1)})
+      .then(() => {
+        let value_ = ((votesInfo.puntos+val)/(votesInfo.votos+1)).toFixed(0);
+        this.excercisesByID(code).then(x => { 
+          parseInt(value_) > 5 ? x.level = 5 : x.level = parseInt(value_);
+            this.rootRef.child(code).update(x);
+            error = false;
+        })
+      })
+      .catch((err) => {
+        error = true;
+      });
+    });
+    return error;
+  }
 
   async addAdmin(admin:User): Promise<string> {
     let recordKey  = "0";
@@ -79,6 +105,7 @@ export class FirebaseService {
     })
     return recordKey;
   }
+  
 
   async deleteAdmin(codigo: string): Promise<string> {
     let mensaje: string;

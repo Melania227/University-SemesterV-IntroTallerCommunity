@@ -45,8 +45,17 @@ export class FileUploadService {
     }
   }
 
-  async getFile(code: string) {
-    return this.storageRef.child('codes/' + code).getDownloadURL();
+  async getFile(code: string):Promise<string> {
+    let link:string;
+    var starsRef = this.storageRef.child('codes/'+ code);
+
+    // Get the download URL
+    await starsRef.getDownloadURL().then(function(url) {
+      link = url;
+    }).catch(function(error) {
+
+    })
+    return link;
   }
 
   async deleteFile(params: string) {
