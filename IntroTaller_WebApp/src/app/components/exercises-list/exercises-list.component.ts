@@ -3,14 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { MessageService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-exercises-list',
   templateUrl: './exercises-list.component.html',
-  styleUrls: ['./exercises-list.component.css']
+  styleUrls: ['./exercises-list.component.css'],
+  //providers: [MessageService]
 })
 export class ExercisesListComponent implements OnInit {
 
+  filterTerm: string;
 
   calification = [false, false, false, false, false];
   exercises: Ejercicio[];
@@ -20,12 +23,18 @@ export class ExercisesListComponent implements OnInit {
 
   id: string;
   private sub: any;
+  subscription: Subscription;
 
   constructor(
-    public firebase: FirebaseService, private route: ActivatedRoute
-  ) { }
+    public firebase: FirebaseService, private route: ActivatedRoute, private searchService: MessageService
+  ) {
+    this.searchService.statusUpdated.subscribe(
+      (status:string) =>{ this.filterTerm = this.searchService.filterTerm; console.log(this.filterTerm)} );
+    
+   }
 
   ngOnInit(): void {
+    
     if (this.isHome) {
       (this.firebase.lastTenExcercises().then((data) => {
         this.exercises = data.reverse();
@@ -107,6 +116,8 @@ export class ExercisesListComponent implements OnInit {
       }
 
     }
+    
+ 
   }
 
   getStars(exercise: Ejercicio) {

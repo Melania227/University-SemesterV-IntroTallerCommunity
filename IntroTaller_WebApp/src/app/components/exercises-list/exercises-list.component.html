@@ -10,11 +10,11 @@
   <div class="container-fluid gigantContainer p-5">
       <div class="row">
           <p class="mainTitle titles">{{titulo}}</p>
-          <div class="col-lg-6" *ngFor="let exercise of exercises">
-              <div class="card text-left my-4">
+          <div class="col-lg-6" *ngFor="let exercise of exercises | filter: filterTerm">
+              <div class="card text-left my-4" [routerLink]="['/details', exercise.code]">
                 <div class="card-body">
                   <div class="row nombreRow">
-                    <a class="titleRedirection" [routerLink]="['/details', exercise.code]"><h2 class="card-title titles">{{exercise.name}}</h2></a>
+                    <h2 class="card-title titles">{{exercise.name}}</h2>
                   </div>
                   <div class="row my-2 mx-1">
                     <div class="col-lg-9">
