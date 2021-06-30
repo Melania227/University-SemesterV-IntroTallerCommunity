@@ -272,10 +272,14 @@ export class CreateExerciseComponent implements OnInit {
         denyButtonText: `Cancelar`,
       }).then((result) => {
         if (result.isConfirmed) {
+          var today = new Date();
+          var dd = String(today.getDate()).padStart(2, '0');
+          var mm = String(today.getMonth() + 1).padStart(2, '0');
+          var yyyy = today.getFullYear();
           let result: Ejercicio = this.form.value;
           result.level = 0
-          result.created = "2020-12-15";
-          result.creator = "Velvet Chimichanga";
+          result.created =  yyyy + '-' + mm + '-' + dd ;
+          result.creator =  localStorage.getItem("nameAdmin");
           if (this.fileToUpload == null) {
             result.solution.code = this.code;
             this.firebase.addExcercise(result);

@@ -5,6 +5,7 @@ import { CodeModel } from '@ngstack/code-editor';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -107,6 +108,13 @@ export class ExercisesDetailsComponent implements OnInit {
       this.calification = this.calification.map((_, i) => rating > i);
       this.firebase.vote((this.exercise.code).toString(),rating)
       console.log('rating', rating);
+      Swal.fire({
+         allowOutsideClick: false,
+         icon: 'success',
+         title: '¡Gracias por tu voto!',
+         showConfirmButton: true,
+         confirmButtonColor: '#3085d6',
+       });
     }
 
 }

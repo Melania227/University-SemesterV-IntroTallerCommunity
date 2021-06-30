@@ -31,6 +31,8 @@ import { ModalModule } from 'ngb-modal';
 
 import { APP_ROUTING } from './app.routes';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SearchFilterPipe } from './search-filter.pipe';
+import { CategoryCarouselComponent } from './components/shared/category-carousel/category-carousel.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ExercisesListCRUDComponent,
     CreateExerciseComponent,
     EditExerciseComponent,
-    ExercisesAdminsComponent
+    ExercisesAdminsComponent,
+    CategoryCarouselComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LevelInfo } from 'src/app/models/ejercicio.model';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   home: boolean = true;
-  constructor() { }
+  levels: LevelInfo[];
+  constructor(public firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
+    this.firebaseService.getAllLevels().then((data)=>{
+      this.levels = data;
+      console.log(this.levels);
+      
+    });
   }
 
 }
