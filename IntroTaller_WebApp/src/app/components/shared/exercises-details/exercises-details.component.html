@@ -30,10 +30,11 @@
                         <div class="col-4"></div>
                         <div class="col-3 stars">
                             <br>
-                            <ng-container *ngFor="let star of getStars(exercise)">
-                                <i class="fas fa-star" *ngIf="star"></i>
-                                <i class="far fa-star" *ngIf="!star"></i>
-                            </ng-container>
+                            <span *ngFor="let star of getStars(exercise); let i = index" (click)="rate(i + 1)">
+                                <ng-container ><i class="fas fa-star" *ngIf="star; else noStar"></i></ng-container>
+                                <ng-template #noStar>  <i class="far fa-star"></i></ng-template>
+                            </span>
+                            
                         </div>
                     </div>
                 </div>
@@ -61,11 +62,20 @@
                             <p class="regular-text2 regular-t" *ngFor="let output of exercise.solution.outputs">{{output.name}}: {{output.type}}</p>
                         </div>
                     </div>
-                    <button class="btn">Mostrar solución</button>
+                    <button class="btn" (click)="showCode()" >Mostrar solución</button>
                 </div>
             </div>
         </div>
         <div class="col-2"></div>
+    </div>
+    <div class="row showCode p-5" *ngIf="CodeAllow">
+        <div class="card form-group p-3">
+                <h4 class=" titles">Solución</h4>
+                <div class="form-control">
+                    <ngs-code-editor #codeEditor theme="vs" value [readOnly]="true" [codeModel]="codeModel" >
+                    </ngs-code-editor>
+                </div>
+        </div>
     </div>
     
     <div class="row examples mr-0 pr-0">
@@ -108,6 +118,8 @@
         </div>
     </div>
 
+
+  
 
 <!-- 
     <div class="row examples">

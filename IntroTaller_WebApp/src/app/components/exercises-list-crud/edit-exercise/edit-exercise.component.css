@@ -33,13 +33,15 @@ p{
 }
 
 h3{
-    font-size: 45px;
+    font-size: 36px;
     text-align: right;
-    font-weight: 500;
+    font-weight: 600;
     color: #1D1E4E;
     margin-right: 2%;
 
 }
+
+
 
 .form-control{
     border-color: #b5b5bd;

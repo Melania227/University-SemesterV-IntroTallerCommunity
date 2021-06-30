@@ -27,8 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CodeEditorModule } from '@ngstack/code-editor';
+import { ModalModule } from 'ngb-modal';
 
 import { APP_ROUTING } from './app.routes';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryCarouselComponent } from './components/shared/category-carousel/category-carousel.component';
 
 @NgModule({
@@ -57,9 +59,11 @@ import { CategoryCarouselComponent } from './components/shared/category-carousel
     AngularFireAuthModule,
     ReactiveFormsModule,
     FormsModule,
+    ModalModule,
     HttpClientModule,
     CodeEditorModule.forRoot(),
-    APP_ROUTING
+    APP_ROUTING,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
