@@ -72,6 +72,7 @@ export class SignUpComponent implements OnInit {
           this._authService.nuevoUsuario({email: this.forma.get('email').value, password: this.forma.get('password').value, name: this.forma.get('name').value })
           .subscribe( resp => {
             console.log(resp);
+            this.firebase.addAdmin({id:"", name: this.forma.get('name').value, email: this.forma.get('email').value});
             Swal.fire('Usuario añadido con éxito', '', 'success')
           }, (err) => {
             console.log(err.error.error.message);
@@ -79,10 +80,6 @@ export class SignUpComponent implements OnInit {
           });
         }
       });
-      let user: User;
-      user.name = this.forma.get('name').value;
-      user.email = this.forma.get('email').value;
-      this.firebase.addAdmin(user);
     }
   }
 

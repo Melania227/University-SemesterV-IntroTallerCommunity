@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { adminUser } from '../models/adminUser';
-import { loginUser } from '../models/loginUser';
+import { loginUser, User } from '../models/loginUser';
 import { map } from 'rxjs/operators';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,9 @@ export class AuthService {
 
 
   //NOTE: Lo primero que hace el servicio es leerToken del localStorage
-  constructor( private http: HttpClient ) {
+  constructor( private http: HttpClient,
+    private _firebaseService: FirebaseService ,
+     ) {
     this.leerToken();
   }
 
@@ -44,6 +47,9 @@ export class AuthService {
     ).pipe(
       map( resp => {
         this.guardarToken( resp['idToken'] ); //queda en el LocalStorage
+        this._firebaseService.adminByEmail(usuario.email).then((data) => {
+          localStorage.setItem('nameAdmin', data.name);
+        });
         return resp;
       })
     ); 
@@ -63,7 +69,7 @@ export class AuthService {
       authData
     ).pipe(
       map( resp => {
-        this.guardarToken( resp['idToken'] ); //queda en el LocalStorage
+        //this.guardarToken( resp['idToken'] ); //queda en el LocalStorage
         return resp;
       })
     );
