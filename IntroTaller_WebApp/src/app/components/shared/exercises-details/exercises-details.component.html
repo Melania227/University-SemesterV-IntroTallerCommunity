@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<div class="loaded" *ngIf="!flagLoading">
+<div class="loaded container-fluid" *ngIf="!flagLoading">
     <div class="row description">
         <div class="col-2"></div>
         <div class="col-8 pt-5 mt-5 px-5">
@@ -68,37 +68,45 @@
         <div class="col-2"></div>
     </div>
     
-    <div class="row examples">
-        <div id="carouselExampleControls" class="carousel slide m-5" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div *ngFor="let group of getGroups(exercise.examples,3), index as i" [ngClass]="i==0?'carousel-item active':'carousel-item'">
-                    <div class="row ">
-                        <div class="col-md-0 col-xl-1">
-                        </div>
-                        <div *ngFor="let ex of group" class="mt-3 col-12 col-md-6 col-xl-3 d-flex justify-content-center">
-                            <div class="card example-card text-left">
-                                <div class="card-body">
-                                  <h4 class="card-title titles">Ejemplo</h4>
-                                  <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">{{ex.call}}</p> <br>
-                                  <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">{{ex.comment}}</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
-                                  <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">{{ex.result}}</p> <br>
+    <div class="row examples mr-0 pr-0">
+        <div class="col-12" *ngIf="examples.length==0">
+            <p class="noExamples">NO HAY EJEMPLOS DISPONIBLES</p>
+        </div>
+
+        <div *ngIf="examples.length!=0">
+            <div id="carouselExampleControls" class="carousel slide my-5 ml-5 mr-0 pr-0" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div *ngFor="let group of getGroups(examples,3), index as i" [ngClass]="i==0?'carousel-item active':'carousel-item'">
+                        <div class="row ">
+                            <div class="col-md-0 col-xl-1">
+                                &nbsp;
+                            </div>
+                            <div *ngFor="let ex of group" class="mt-3 col-12 col-md-6 col-xl-3 d-flex justify-content-center">
+                                <div class="card example-card text-left">
+                                    <div class="card-body">
+                                      <h4 class="card-title titles">Ejemplo</h4>
+                                      <p class="m-0 d-inline meaningExample titles2">Llamada: </p> <p class="m-0 d-inline">{{ex.call}}</p> <br>
+                                      <p class="m-0 d-inline meaningExample titles2">Nota: </p> <p class="m-0 d-inline">{{ex.comment}}</p> <br> <!-- <p class="m-0 d-inline" *ngIf="example.comment != ''">Ejemplo</p> <p class="m-0 d-inline" *ngIf="example.comment == ''">No disponible</p> <br> -->
+                                      <p class="m-0 d-inline meaningExample titles2">Resultado: </p> <p class="m-0 d-inline">{{ex.result}}</p> <br>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-0 col-xl-1">
+                                &nbsp;
+                            </div>
                         </div>
-                        <div class="col-md-0 col-xl-1">
-                        </div>
+            
                     </div>
-        
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
         </div>
     </div>
 </div>

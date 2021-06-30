@@ -48,8 +48,7 @@ export class ExercisesDetailsComponent implements OnInit {
          value: this.exercise.solution.code,
          dependencies: ['@types/node', '@ngstack/translate', '@ngstack/code-editor']
       };
-      this.examples = this.exercise.examples;
-      console.log(this.getGroups(this.examples, 3));
+      this.examples = this.exercise.examples!=undefined?this.exercise.examples:[];
       
       setTimeout(() => { this.flagLoading = false;}, 500);
    }); 
@@ -76,6 +75,10 @@ export class ExercisesDetailsComponent implements OnInit {
    return new Array(Math.ceil(arr.length / numGroups))
      .fill('')
      .map((_, i) => arr.slice(i * perGroup, (i + 1) * perGroup));
+ }
+
+ sizeExamples(){
+    this.examples.length;
  }
 
 }
