@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Ejercicio } from 'src/app/models/ejercicio.model';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-navbar-admin',
@@ -8,11 +10,16 @@ import { Router } from '@angular/router';
 })
 export class NavbarAdminComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  filterTerm: string;
 
-  ngOnInit(): void {
+  constructor(public firebase: FirebaseService, private router: Router) {
+  
   }
 
+  ngOnInit(): void {
+    
+  }
+ 
   logout(){
     localStorage.clear();
     this.router.navigate(['/home']);

@@ -7,7 +7,7 @@
 
 .container-fluid{
     background-color: #979eb8;
-background-image: url("https://www.transparenttextures.com/patterns/crissxcross.png");
+    background-image: url("https://www.transparenttextures.com/patterns/white-diamond.png");
 }
 
 .txt{
@@ -24,10 +24,23 @@ p{
  */
 .card-title{
     font-size: 25px;
+    color: #1D1E4E !important;
 }
 
 .card:hover{
     background-color: #1D1E4E;
     color: white;
     box-shadow: 0 5px 15px #1D1E4E;
+    cursor: pointer;
+}
+
+.p{
+    border-top: 3px solid #1D1E4E;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+
+.card:hover .card-title{
+    color: #e8e8f7 !important;
 }

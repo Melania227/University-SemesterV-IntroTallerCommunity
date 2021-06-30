@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
@@ -9,6 +10,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./exercises-list.component.css']
 })
 export class ExercisesListComponent implements OnInit {
+
 
   calification = [false, false, false, false, false];
   exercises: Ejercicio[];
@@ -24,10 +26,9 @@ export class ExercisesListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     if (this.isHome) {
       (this.firebase.lastTenExcercises().then((data) => {
-        this.exercises = data
+        this.exercises = data.reverse();
         setTimeout(() => { this.flagLoading = false; }, 500);
       }));
       this.titulo = "Ejercicios recientemente agregados"
@@ -37,6 +38,16 @@ export class ExercisesListComponent implements OnInit {
         this.id = params['type'];
       });
       switch(this.id){
+        case "category.section":{
+          let cat = localStorage.getItem("categoria");
+          localStorage.removeItem("categoria");
+          this.firebase.excercisesByCat(cat).then((data) => {
+            this.exercises = data
+            setTimeout(() => { this.flagLoading = false; }, 500);
+            this.titulo = cat;
+          });
+          break;
+        }
         case "0":{
           (this.firebase.excercisesByLevel(this.id).then((data) => {
             this.exercises = data
