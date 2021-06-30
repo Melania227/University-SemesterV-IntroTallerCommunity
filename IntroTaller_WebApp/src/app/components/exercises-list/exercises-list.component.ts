@@ -13,7 +13,7 @@ import { MessageService } from 'src/app/services/messages.service';
 })
 export class ExercisesListComponent implements OnInit {
 
-  filterTerm: string;
+  filterTerm: string = "";
 
   calification = [false, false, false, false, false];
   exercises: Ejercicio[];
@@ -29,7 +29,11 @@ export class ExercisesListComponent implements OnInit {
     public firebase: FirebaseService, private route: ActivatedRoute, private searchService: MessageService
   ) {
     this.searchService.statusUpdated.subscribe(
-      (status:string) =>{ this.filterTerm = this.searchService.filterTerm; console.log(this.filterTerm)} );
+      (status:string) =>
+      { 
+        this.filterTerm = this.searchService.filterTerm; 
+        if (this.filterTerm == "") console.log("vacio");
+      } );
     
    }
 
