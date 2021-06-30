@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { loginUser } from 'src/app/models/loginUser';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _authService: AuthService 
+    private _authService: AuthService ,
+    private router: Router
   ) { 
     this.createForm();
   }
@@ -40,19 +43,36 @@ export class LoginComponent implements OnInit {
     )
   }
 
-  signUp(){
+  login(){
     if(this.forma.invalid){
       Object.values( this.forma.controls ).forEach (control =>{
         control.markAsTouched();
       })
     }
     else{
-      console.log(this.forma);
       this._authService.login({email: this.forma.get('email').value, password: this.forma.get('password').value})
       .subscribe( resp => {
-        console.log(resp);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          title: '¡Sesión iniciada con éxito!',
+          showConfirmButton: true,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: `Aceptar`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            //redirecciona al home de administradores
+            this.router.navigateByUrl("/home");
+          }
+        })
       }, (err) => {
-        console.log(err.error.error.message);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'error',
+          title: '¡Inicio de sesión inválido!',
+          text: 'Credenciales inválidas, intente nuevamente.',
+          confirmButtonColor: '#3085d6'
+        })
       });
     }
   }
