@@ -5,6 +5,7 @@ import { CodeModel } from '@ngstack/code-editor';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-exercise',
@@ -345,6 +346,20 @@ export class EditExerciseComponent implements OnInit {
        
       }
       this.firebase.editExcercise(result);
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'success',
+        title: '¡Ejercicio editado con éxito!',
+        showConfirmButton: true,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: `Aceptar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log("Confirmado");
+          //redirecciona al home de administradores
+          //this.router.navigateByUrl("/home");
+        }
+      });
     }
   }
 }
