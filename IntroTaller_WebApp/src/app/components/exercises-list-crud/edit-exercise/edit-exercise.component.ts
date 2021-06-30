@@ -9,12 +9,13 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 @Component({
   selector: 'app-edit-exercise',
   templateUrl: './edit-exercise.component.html',
-  styleUrls: ['./edit-exercise.component.css']
+  styleUrls: ['./edit-exercise.component.css'],
 })
 export class EditExerciseComponent implements OnInit {
   id: string;
   private sub: any;
 
+  ejercicio: Ejercicio;
   form: FormGroup;
   fileToUpload: File | null = null;
   code: string;
@@ -22,20 +23,23 @@ export class EditExerciseComponent implements OnInit {
   btn_bool: Boolean;
   editable: Boolean;
   codeModel: CodeModel;
-  @ViewChild('codeEditor') codeEditor_: ElementRef<HTMLInputElement>;
+  archivoCambiado: Boolean;
 
-  constructor(private fb: FormBuilder, private us: FileUploadService, private firebase: FirebaseService, private route: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private us: FileUploadService,
+    private firebase: FirebaseService,
+    private route: ActivatedRoute
+  ) {
     this.createForm();
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['id'];
-    })
-    }
-
-  ngOnInit(): void {
-    this.firebase.excercisesByID(this.id).then(value => this.fillform(value) );
+    });
+    this.archivoCambiado = false;
+    this.firebase.excercisesByID(this.id).then((value) => this.fillform(value));
     this.textContent = 'No se ha cargado ningún archivo';
-    this.btn_bool= this.editable = false;
-    this.code = '\n\n\n\n';
+    this.btn_bool = this.editable = false;
+    this.code = '#No se puede visualizar el código, lo sentimos :P\n\n\n\n';
     this.codeModel = {
       language: 'python',
       uri: '',
@@ -46,6 +50,10 @@ export class EditExerciseComponent implements OnInit {
         '@ngstack/code-editor',
       ],
     };
+  }
+
+  ngOnInit(): void {
+    
   }
 
   createForm() {
@@ -62,45 +70,60 @@ export class EditExerciseComponent implements OnInit {
     });
   }
 
-  fillform(value: Ejercicio){
-    if( value.solution.code.slice(-1) != "_"){
+  fillform(value: Ejercicio) {
+    console.log(value);
+    this.ejercicio = value;
+    if (value.solution.code.slice(-1) != '_') {
       this.code = value.solution.code;
       this.codeModel = {
         language: 'python',
         uri: '',
-        value: this.code ,
+        value: this.code,
         dependencies: [
           '@types/node',
           '@ngstack/translate',
           '@ngstack/code-editor',
         ],
       };
-    }
-    else{
+    } else {
       //this.us.getFile(value.solution.code);
       this.textContent = value.solution.code;
       this.btn_bool = this.editable = true;
     }
-    this.form.reset(
-      {
-        call: value.call,
-        name: value.name,
-        section: value.section,
-        details: value.details
-      });
-      value.examples.forEach (valor => this.examples.push(this.fb.group({
-        call: [valor.call, Validators.required],
-        result: [valor.result, Validators.required],
-        comment: [valor.comment],
-      })));
-      value.solution.inputs.forEach (valor => this.inputs.push(this.fb.group({
-        name: [valor.name, Validators.required],
-        type: [valor.type, Validators.required],
-      })));
-      value.solution.outputs.forEach (valor => this.outputs.push(this.fb.group({
-        name: [valor.name, Validators.required],
-        type: [valor.type, Validators.required],
-      })));
+    this.form.reset({
+      call: value.call,
+      name: value.name,
+      section: value.section,
+      details: value.details,
+    });
+    if (value.examples != undefined)
+      value.examples.forEach((valor) =>
+        this.examples.push(
+          this.fb.group({
+            call: [valor.call, Validators.required],
+            result: [valor.result, Validators.required],
+            comment: [valor.comment],
+          })
+        )
+      );
+    if (value.solution.inputs != undefined)
+      value.solution.inputs.forEach((valor) =>
+        this.inputs.push(
+          this.fb.group({
+            name: [valor.name, Validators.required],
+            type: [valor.type, Validators.required],
+          })
+        )
+      );
+    if (value.solution.outputs != undefined)
+      value.solution.outputs.forEach((valor) =>
+        this.outputs.push(
+          this.fb.group({
+            name: [valor.name, Validators.required],
+            type: [valor.type, Validators.required],
+          })
+        )
+      );
   }
 
   get solution() {
@@ -175,7 +198,7 @@ export class EditExerciseComponent implements OnInit {
       this.examples.at(i).get('result').touched
     );
   }
- 
+
   //Ejemplos dinamicos
   addExample() {
     this.examples.push(
@@ -225,46 +248,45 @@ export class EditExerciseComponent implements OnInit {
       this.fileToUpload = event.target.files[0];
       this.btn_bool = this.editable = true;
       this.textContent = this.fileToUpload.name;
-      
-      function readFile(file){
-        return new Promise((resolve,reject) => {
+
+      function readFile(file) {
+        return new Promise((resolve, reject) => {
           var reader = new FileReader();
-          reader.readAsText(file)
-          reader.onload = function(){
-            resolve(this.result)
-          }
-        })
+          reader.readAsText(file);
+          reader.onload = function () {
+            resolve(this.result);
+          };
+        });
       }
-      
-      readFile(this.fileToUpload).then( data => {
-         typeof data === 'string'
-        ? this.showCode(data)
-        : undefined
+
+      readFile(this.fileToUpload).then((data) => {
+        typeof data === 'string' ? this.showCode(data) : undefined;
       });
     }
   }
 
   removeCodeFile() {
-    this.code = "";
+    this.archivoCambiado = true;
+    this.code = '';
     this.btn_bool = this.editable = false;
     this.fileToUpload = null;
     this.textContent = 'No se ha cargado ningún archivo';
-    this.showCode("");
+    this.showCode('');
   }
 
   //Code
   addCodeText(event: any) {
+    this.archivoCambiado = true;
     this.code = event;
-    if(this.code  != "" && this.code != '\n\n\n\n')
-      this.btn_bool = true;
+    if (this.code != '' && this.code != '\n\n\n\n') this.btn_bool = true;
   }
 
   showCode(data: string) {
     this.code = data;
-      this.codeModel = {
+    this.codeModel = {
       language: 'python',
       uri: '',
-      value: this.code ,
+      value: this.code,
       dependencies: [
         '@types/node',
         '@ngstack/translate',
@@ -274,7 +296,7 @@ export class EditExerciseComponent implements OnInit {
   }
 
   guardar() {
-    
+    let result: Ejercicio = this.form.value;
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach((control) => {
         if (control instanceof FormGroup) {
@@ -285,22 +307,44 @@ export class EditExerciseComponent implements OnInit {
           control.markAsTouched();
         }
       });
+    } 
+    else {
+      result.level = this.ejercicio.level;
+      result.created = this.ejercicio.created;
+      result.creator = this.ejercicio.creator;
+      result.code = this.ejercicio.code;
+      if (this.ejercicio.solution.code.slice(-1) === '_') {
+        if (this.archivoCambiado) {
+          if (this.fileToUpload == null) {
+            result.solution.code = this.code;
+            console.log(this.ejercicio.created+'-'+this.ejercicio.code+this.ejercicio.solution.code);
+            this.us.deleteFile(this.ejercicio.created+'-'+this.ejercicio.code+this.ejercicio.solution.code);
+          }
+          else {
+            result.solution.code = this.fileToUpload.name+"_";
+            this.us.deleteFile(this.ejercicio.created + '-' + this.ejercicio.code + this.ejercicio.solution.code).then(() =>
+              this.us.uploadFile(this.fileToUpload, result.created + '-' + this.ejercicio.code));
+          }
+        }
+        else {
+          result.solution.code = this.ejercicio.solution.code;
+        }
+      }
+      else {
+        if (this.archivoCambiado) {
+          if (this.fileToUpload == null) {
+            result.solution.code = this.code;
+          }
+          else {
+            result.solution.code = this.fileToUpload.name+"_";
+            this.us.uploadFile(this.fileToUpload, result.created + '-' + this.ejercicio.code);
+          }
+        } else {
+          result.solution.code = this.ejercicio.solution.code;
+        }
+       
+      }
+      this.firebase.editExcercise(result);
     }
-    if (this.fileToUpload==null){
-      this.form = this.fb.group({
-        ...this.form.controls,
-        code: this.code
-      })
-    }
-    else{
-      this.form = this.fb.group({
-        ...this.form.controls,
-        code: [
-          'codes/' + this.fileToUpload.name + '_' + "code"
-        ],
-      })
-    }
-    let result:Ejercicio = this.form.value;
-    
   }
 }

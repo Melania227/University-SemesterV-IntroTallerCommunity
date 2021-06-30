@@ -42,8 +42,8 @@ export class FirebaseService {
   }
 
   //Agrega ejercicio, retorna true si hubo error, false si no
-  async addExcercise(ejercicio): Promise<boolean> {
-    let recordKey = "0";
+  async addExcercise(ejercicio): Promise<string> {
+    let recordKey  = "0";
     let error = false;
      await this.rootRef.limitToLast(1).once('value', snap => {
       snap.forEach(e => {
@@ -55,11 +55,9 @@ export class FirebaseService {
     console.log(recordKey);
     ejercicio.code = recordKey;
     await this.rootRef.child(recordKey).set(ejercicio).then(() => {
-      error = false;console.log(recordKey)
-    }).catch((err) => {
-      error = true; console.log(error)
+      return recordKey;
     })
-    return error;
+    return recordKey;
   }
 
   

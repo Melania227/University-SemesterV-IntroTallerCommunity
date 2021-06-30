@@ -20,13 +20,13 @@ export class CreateExerciseComponent implements OnInit {
   btn_bool: Boolean;
   editable: Boolean;
   codeModel: CodeModel;
-  progress:number;
+  progress: number;
   @ViewChild('codeEditor') codeEditor_: ElementRef<HTMLInputElement>;
 
-  constructor(private fb: FormBuilder, private us: FileUploadService,private firebase: FirebaseService) {
+  constructor(private fb: FormBuilder, private us: FileUploadService, private firebase: FirebaseService) {
     this.createForm();
     this.textContent = 'No se ha cargado ningún archivo';
-    this.btn_bool= this.editable = false;
+    this.btn_bool = this.editable = false;
     this.code = '\n\n\n\n';
     this.codeModel = {
       language: 'python',
@@ -40,7 +40,7 @@ export class CreateExerciseComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   createForm() {
     this.form = this.fb.group({
@@ -144,7 +144,7 @@ export class CreateExerciseComponent implements OnInit {
       this.examples.at(i).get('result').touched
     );
   }
- 
+
   //Ejemplos dinamicos
   addExample() {
     this.examples.push(
@@ -192,20 +192,20 @@ export class CreateExerciseComponent implements OnInit {
       this.btn_bool = this.editable = true;
       this.textContent = this.fileToUpload.name;
 
-      function readFile(file){
-        return new Promise((resolve,reject) => {
+      function readFile(file) {
+        return new Promise((resolve, reject) => {
           var reader = new FileReader();
           reader.readAsText(file)
-          reader.onload = function(){
+          reader.onload = function () {
             resolve(this.result)
           }
         })
       }
-      
-      readFile(this.fileToUpload).then( data => {
-         typeof data === 'string'
-        ? this.showCode(data)
-        : undefined
+
+      readFile(this.fileToUpload).then(data => {
+        typeof data === 'string'
+          ? this.showCode(data)
+          : undefined
       });
 
 
@@ -222,16 +222,16 @@ export class CreateExerciseComponent implements OnInit {
   //Code
   addCodeText(event: any) {
     this.code = event;
-    if(this.code  != "" && this.code != '\n\n\n\n')
+    if (this.code != "" && this.code != '\n\n\n\n')
       this.btn_bool = true;
   }
 
   showCode(data: string) {
     this.code = data;
-      this.codeModel = {
+    this.codeModel = {
       language: 'python',
       uri: '',
-      value: this.code ,
+      value: this.code,
       dependencies: [
         '@types/node',
         '@ngstack/translate',
@@ -251,26 +251,23 @@ export class CreateExerciseComponent implements OnInit {
           control.markAsTouched();
         }
       });
+    } else {
+      let result: Ejercicio = this.form.value;
+      result.level = 0
+      result.created = "2020-12-15";
+      result.creator = "Velvet Chimichanga";
+      if (this.fileToUpload == null) {
+        result.solution.code = this.code;
+        this.firebase.addExcercise(result);
+      }
+      else {
+        result.solution.code = this.fileToUpload.name+"_";
+        this.firebase.addExcercise(result).then(code => {
+          this.us.uploadFile(this.fileToUpload, result.created+'-'+code);
+        });
+      }
     }
-    let result:Ejercicio = this.form.value;
-    result.level = 0
-    result.created = "2020-12-15";
-    result.creator = "Velvet Chimichanga";
-    if (this.fileToUpload==null){
-      result.solution.code = this.code;
-      this.firebase.addExcercise(result);
-    }
-    else{
-      result.solution.code = this.fileToUpload.name;
-      this.firebase.addExcercise(result).then(() => {
-        this.us.uploadFile(this.fileToUpload,result.created).then(() => {
-          this.us.getFile(result.solution.code);
-          }
-        );
-      
-      });
-    }
-    
+
   }
 
 }
