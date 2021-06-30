@@ -27,3 +27,10 @@ export interface Solucion{
     code: string;
     inputs: IOdata[];
 }
+
+
+export interface Rating{
+    id: string;
+    puntos: number;
+    votos: number;
+}
