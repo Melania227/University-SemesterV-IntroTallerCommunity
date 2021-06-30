@@ -229,4 +229,22 @@ export class FirebaseService {
     console.log(list);
     return list;
   }
+
+  //Filtrar ejercicios y dar categorias existentes
+  async getAllCategories(): Promise<string[]> {
+    let list: Ejercicio[] = [];
+    await this.rootRef.once('value', (snapshot) => {
+      snapshot.forEach(function (childSnapshot) {
+        let data = childSnapshot.val();
+        list.push(data);
+      });
+    });
+
+    let categories: string[] = [];
+    list.filter((elem)=>{
+      categories.includes(elem.section)?categories:categories.push(elem.section);
+    })
+    return categories;
+  }
+
 }
