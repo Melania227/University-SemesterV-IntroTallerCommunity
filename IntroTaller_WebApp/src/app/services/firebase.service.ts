@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import firebase from 'firebase';
-import { Ejercicio, Rating } from 'src/app/models/ejercicio.model';
+import { CategoriasInfo, Ejercicio, LevelInfo, Rating } from 'src/app/models/ejercicio.model';
 import { User } from '../models/loginUser';
 
 @Injectable({
@@ -19,6 +19,8 @@ export class FirebaseService {
     this.starsRef = database.ref('/Rating/');
   }
 
+
+  
   //Obtener todos los ejercicios :)
   async getAllExercises(): Promise<Ejercicio[]> {
     let list: Ejercicio[] = [];
@@ -231,7 +233,7 @@ export class FirebaseService {
   }
 
   //Filtrar ejercicios y dar categorias existentes
-  async getAllCategories(): Promise<string[]> {
+  async getAllCategories(): Promise<CategoriasInfo[]> {
     let list: Ejercicio[] = [];
     await this.rootRef.once('value', (snapshot) => {
       snapshot.forEach(function (childSnapshot) {
@@ -244,7 +246,34 @@ export class FirebaseService {
     list.filter((elem)=>{
       categories.includes(elem.section)?categories:categories.push(elem.section);
     })
-    return categories;
+    let catInfo:CategoriasInfo[] = [];
+    categories.forEach((elem)=>
+      catInfo.push({section: elem, quantity: 0})
+    );
+    list.forEach((elem) =>{
+      catInfo.filter( x => x.section == elem.section ? x.quantity+=1 : 0  )
+    })
+    return catInfo;
+  }
+
+  async getAllLevels(): Promise<LevelInfo[]> {
+    let list: Ejercicio[] = [];
+    await this.rootRef.once('value', (snapshot) => {
+      snapshot.forEach(function (childSnapshot) {
+        let data = childSnapshot.val();
+        list.push(data);
+      });
+    });
+
+    let levels: number[] = [0,1,2,3,4,5];
+    let levelsInfo:LevelInfo[] = [];
+    levels.forEach((elem)=>
+      levelsInfo.push({level: elem, quantity: 0})
+    );
+    list.forEach((elem) =>{
+      levelsInfo.filter( x => x.level == elem.level ? x.quantity+=1 : 0  )
+    })
+    return levelsInfo;
   }
 
 }

@@ -1,14 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { Ejercicio } from 'src/app/models/ejercicio.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { MessageService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-exercises-list',
   templateUrl: './exercises-list.component.html',
-  styleUrls: ['./exercises-list.component.css']
+  styleUrls: ['./exercises-list.component.css'],
+  //providers: [MessageService]
 })
 export class ExercisesListComponent implements OnInit {
+
+  filterTerm: string;
 
   calification = [false, false, false, false, false];
   exercises: Ejercicio[];
@@ -18,16 +23,21 @@ export class ExercisesListComponent implements OnInit {
 
   id: string;
   private sub: any;
+  subscription: Subscription;
 
   constructor(
-    public firebase: FirebaseService, private route: ActivatedRoute
-  ) { }
+    public firebase: FirebaseService, private route: ActivatedRoute, private searchService: MessageService
+  ) {
+    this.searchService.statusUpdated.subscribe(
+      (status:string) =>{ this.filterTerm = this.searchService.filterTerm; console.log(this.filterTerm)} );
+    
+   }
 
   ngOnInit(): void {
-
+    
     if (this.isHome) {
       (this.firebase.lastTenExcercises().then((data) => {
-        this.exercises = data
+        this.exercises = data.reverse();
         setTimeout(() => { this.flagLoading = false; }, 500);
       }));
       this.titulo = "Ejercicios recientemente agregados"
@@ -37,6 +47,16 @@ export class ExercisesListComponent implements OnInit {
         this.id = params['type'];
       });
       switch(this.id){
+        case "category.section":{
+          let cat = localStorage.getItem("categoria");
+          localStorage.removeItem("categoria");
+          this.firebase.excercisesByCat(cat).then((data) => {
+            this.exercises = data
+            setTimeout(() => { this.flagLoading = false; }, 500);
+            this.titulo = cat;
+          });
+          break;
+        }
         case "0":{
           (this.firebase.excercisesByLevel(this.id).then((data) => {
             this.exercises = data
@@ -96,6 +116,8 @@ export class ExercisesListComponent implements OnInit {
       }
 
     }
+    
+ 
   }
 
   getStars(exercise: Ejercicio) {

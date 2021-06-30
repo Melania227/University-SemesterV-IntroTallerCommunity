@@ -18,8 +18,7 @@
                 <a class="nav-link px-5 py-3" [routerLink]="['/exercises-admin']">Listado de ejercicios</a>
             </li>
             <form class="d-flex px-5 mx-5">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn search-btn" type="submit"><i class="fas fa-search"></i></button>
+                <input class="form-control d-none d-lg-inline" type="search" placeholder="Buscar.." aria-label="Search" [(ngModel)]="filterTerm" (keyup.enter)="search()" name="gato">
             </form>
         </ul>
     </div>
