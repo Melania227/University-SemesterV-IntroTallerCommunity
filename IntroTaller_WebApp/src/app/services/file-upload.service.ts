@@ -4,41 +4,59 @@ import firebase from 'firebase';
 import Swal from 'sweetalert2';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FileUploadService {
-  
   storageRef: firebase.storage.Reference;
-  metadata: { contentType: string; };
+  metadata: { contentType: string };
 
   constructor(private angularFirebaseStorage: AngularFireStorage) {
     const storage = this.angularFirebaseStorage.storage;
     this.storageRef = storage.ref();
-    this.metadata= {
-      contentType: 'text/plain'
+    this.metadata = {
+      contentType: 'text/plain',
     };
-   }
+  }
 
-
-   async uploadFile(file:File, code:string){
+  async uploadFile(file: File, code: string):Promise<string> {
     console.log(file.text);
-    var uploadTask = this.storageRef.child('codes/'+code+file.name+'_').put(file,this.metadata);
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
-       function(snapshot) {
+    var uploadTask = this.storageRef
+      .child('codes/' + code + file.name+"_")
+      .put(file, this.metadata);
+    try {uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      function (snapshot) {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
-      }, function(error) {
+      },
+      function (error) {
         console.log(error.code);
-      }, function() {
-      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        console.log('File available at', downloadURL);
-      });
-    });
-   }
+      },
+      function () {
+        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          console.log('File available at', downloadURL);
+        });
+      }
+    );
+      return "Exito";
+    }
+    catch{
+      return "Error";
+    }
+  }
 
-  async getFile(code:string){
-    return this.storageRef.child('codes/'+code).getDownloadURL();
-   }
+  async getFile(code: string) {
+    return this.storageRef.child('codes/' + code).getDownloadURL();
+  }
 
-  
+  async deleteFile(params: string) {
+    // Create a reference to the file to delete
+    this.storageRef.child('codes/'+ params).delete()
+    .then(res => {
+      console.log('Success');
+    })
+    .catch((err) => {
+      console.log('Error');
+    })
+  }
 }
